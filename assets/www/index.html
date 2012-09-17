@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>MensApp</title>
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.2.0-rc.1.css" />
+		<link rel="stylesheet" href="jquery.mobile/jquery.mobile.mensapp.css" />
+		<link rel="stylesheet" href="style.css" />
+		<script src="jquery/jquery-1.8.0.js"></script>
+		<script src="js/mobileinit.js"></script><!-- has to be placed before jquery mobile -->
+		<script src="jquery.mobile/jquery.mobile-1.2.0-rc.1.js"></script>
+		<script src="js/spin.min.js"></script>
+		<script src="js/date.format.js"></script>
+		<script src="js/jquery.spin.js"></script>
+		<script defer="defer" src="js/default.js"></script>
+	</head>
+	<body>
+		<!-- Mainpage -->
+		<div id="mainPage" data-role="page" data-theme="a">
+			<div data-role="header" data-theme="a">
+				<h1>MensApp</h1>
+				<div id="dateString">
+					( 01.02 - 01.01.1942 )
+				</div>
+				<a href="#" data-icon="plus" id="expandAll" data-mini="true">Alle auf</a>
+				<a href="#" data-icon="minus" id="collapseAll" data-mini="true">Alle zu</a>
+			</div><!-- /header -->
+			<!-- 			<div id="spinner">
+			<div id="loading">
+			...Lade Daten vom Studiwerk...
+			</div>
+			</div> -->
+			<div id="content" data-role="content">
+				<div id="day1" data-role="collapsible" data-content-theme="d" data-inset="false">
+					<h3>Montag</h3>
+					<div id="se0" data-day="Mo" class="menuEntry" >
+						Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+						<br/>
+						Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+					</div>
+				</div>
+				<div id="day" data-role="collapsible" data-content-theme="d" data-inset="false">
+					<h3>Dienstag</h3>
+					<div id="se1" data-day="Di" class="menuEntry">
+						Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt u
+						<br/>
+						t labore et dolore magna aliquyamLorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
+						<br/>
+						et dolore magna aliquyam
+					</div>
+				</div>
+				<div id="day3" data-role="collapsible" data-content-theme="d" data-inset="false">
+					<h3>Mittwoch</h3>
+					<div id="se2" data-day="Mi" class="menuEntry">
+						Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
+						<br/>
+						magna aliquyamLorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labo
+						<br/>
+						re et dolore magna aliquyam
+					</div>
+				</div>
+				<div id="day4" data-role="collapsible" data-content-theme="d" data-inset="false">
+					<h3>Donnerstag</h3>
+					<div id="se3" data-day="Do" class="menuEntry">
+						Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed dia
+						<br/>
+						m nonumy eirmod tempor invidunt ut labore et dolore magna aliquyamLorem ipsum dolor sit amet, consetetur sadipscing elitr,
+						<br/>
+						sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+					</div>
+				</div>
+				<div id="day5" data-role="collapsible" data-content-theme="d" data-inset="false">
+					<h3>Freitag</h3>
+					<div id="se4" data-day="Fr" class="menuEntry">
+						Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
+						<br/>
+						ut labore et dolore magna aliquyamLorem ipsum dolor sit amet
+						<br/>
+						, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+					</div>
+				</div>
+				<!-- 		<div class="ui-corner-all ui-overlay-shadow ui-body-e messageBox">
+				<h3></h3>
+				<p></p>
+				</div> -->
+			</div><!-- /content -->
+			<div id="footer" data-role="footer" data-theme="a">
+				<div data-role="navbar" data-iconpos="right">
+					<ul>
+						<li>
+							<a href="#appetizer" data-icon="appetizer" class="ui-btn-icon-left">MensAppetizer</a>
+						</li>
+						<li>
+							<a href="#options" data-icon="gear">Einstellungen</a>
+						</li>
+					</ul>
+				</div><!-- /navbar -->
+				<div data-role="fieldcontain">
+					<select name="select-choice-1" id="mensaSelect" data-native-menu="false">
+						<option value="1">[UNI] Tarforst</option>
+						<option value="8">[UNI] Geo-Mensa Petrisberg</option>
+						<option value="2">[UNI] Forum/Bistro AB - Kleine Karte</option>
+						<!-- 						<option value="4">[UNI] Forum/Bistro AB - Abendmensa</option> -->
+						<!-- 						<option value="3">[UNI] Samstagsmensa Bistro AB</option> -->
+						<!-- 						<option value="12">[UNI] Bistro A/B Tellergericht (nur Semesterferien)</option> -->
+						<option value="7">[FH] Schneidershof</option>
+						<option value="5">[FH] Cafeteria Schneidershof - Kleine Karte</option>
+						<!-- 						<option value="9">[HGT] Kleine Karte</option> -->
+						<!-- 						<option value="11">[FWG] Kleine Karte</option> -->
+						<option value="10">[Kindergarten] Kleine Karte</option>
+						<option value="6">Mittagstisch im Irminenfreihof</option>
+					</select>
+				</div>
+			</div><!-- /footer -->
+			<div id="copyright">
+				<span>created by</span><a href="http://devinmotion.de/" target="_blank"><img src="images/devinmotion_logo_trans_small.png" height="50px" width="100"/></a>
+			</div>
+			<div class="iconhelp">
+				<ul>
+					<li><img src='colored_icons/vegetarisch.gif' />vegetarisch
+					</li>
+					<li><img src='colored_icons/rind.gif' />Rind
+					</li>
+					<li><img src='colored_icons/schwein.gif' />Schwein
+					</li>
+					<li><img src='colored_icons/huhn.gif' />Huhn
+					</li>
+					<li><img src='colored_icons/fisch.gif' />Fisch
+					</li>
+					<li><img src='colored_icons/wild.gif' />Wild
+					</li>
+					<li><img src='colored_icons/laktosefrei.gif' />laktosefrei
+					</li>
+					<li><img src='colored_icons/lamm.gif' />Lamm
+					</li>
+					<li><img src='colored_icons/vegan.gif' />vegan
+					</li>
+					<li><img src='colored_icons/schlank.gif' />schlanker Tag
+					</li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+		<!-- Options-Page -->
+		<div id="options" data-role="page" data-theme="a"  data-overlay-theme="e">
+			<div data-role="content">
+				<h3>Einstellungen</h3>
+				<form>
+					<input type="checkbox" name="selectedMensaOption" id="selectedMensaOption"/>
+					<label for="selectedMensaOption">Mensenauswahl merken</label>
+				</form>
+				<a href="#popupDeleteData" data-rel="popup" data-role="button">Speisepläne zurücksetzen</a>
+				<div data-role="popup" id="popupDeleteData" style="max-width:400px;" class="ui-corner-all">
+					<div data-role="header" data-theme="a" class="ui-corner-top">
+						<h1>Wirklich löschen?</h1>
+					</div>
+					<div data-role="content" data-theme="b" class="ui-corner-bottom ui-content">
+						<h3 class="ui-title">Sollen die aktuellen Speisepläne zurückgesetzt werden?</h3>
+						<p>
+							Alle Essensdaten werden entfernt und erneut vom Studiwerk geladen.
+						</p>
+						<a href="#" data-role="button" data-inline="true" data-rel="back" id="deleteData">Ja</a>
+						<a href="#" data-role="button" data-inline="true" data-rel="back">Nein</a>
+					</div>
+				</div>
+
+				<a href="#popupDeleteSettings" data-rel="popup" data-role="button">Einstellungen zurücksetzen</a>
+				<div data-role="popup" id="popupDeleteSettings" style="max-width:400px;" class="ui-corner-all">
+					<div data-role="header" data-theme="a" class="ui-corner-top">
+						<h1>Wirklich löschen?</h1>
+					</div>
+					<div data-role="content" data-theme="b" class="ui-corner-bottom ui-content">
+						<h3 class="ui-title">Sollen die aktuellen Einstellungen zurückgesetzt werden?</h3>
+						<p>
+                            Diese Aktion lässt sich nicht rückgängig machen.
+						</p>
+						<a href="#" data-role="button" data-inline="true" data-rel="back" id="deleteSettings">Ja</a>
+						<a href="#" data-role="button" data-inline="true" data-rel="back">Nein</a>
+					</div>
+				</div>
+
+				<br />
+				<br />
+				<a href="#mainPage" data-role="button" class="saveBackButton" data-rel="back">Speichern und Zurück</a>
+
+				<div data-role="popup" id="popupInfo" class="ui-content" data-theme="a" data-transition="fade" style="max-width:350px;">
+					<h3></h3>
+					<p></p>
+				</div>
+				
+			</div>
+		</div><!-- /page -->
+		<!-- Appetizer -Page -->
+		<div id="appetizer" data-role="page" data-theme="a"  data-overlay-theme="e">
+			<div data-role="content">
+				<h3>MensAppetizer</h3>
+				<div id="appetizerHelp">
+					<div class="ui-corner-all ui-shadow ui-btn-up-e"></div>
+					<p>
+						Mit dem MensAppetizer kannst du deine Lieblingsspeisen in eine Merkliste eintragen.
+						MensApp benachrichtigt dich dann, sobald ein Lieblingsgericht in der Mensa serviert wird.
+					</p>
+				</div>
+				<form>
+					<input type="checkbox" name="useAppetizerOption" id="useAppetizerOption"/>
+					<label for="useAppetizerOption">MensAppetizer nutzen</label>
+				</form>
+				<a href="#watchlist" data-transition="pop" data-rel="dialog" data-role="button">Merkliste bearbeiten</a>
+				<a href="#popupDeleteAppetizer" data-rel="popup" data-role="button" id="askDeleteAppetizer">Merkliste löschen</a>
+                <div data-role="popup" id="popupDeleteAppetizer" style="max-width:400px;" class="ui-corner-all">
+                    <div data-role="header" data-theme="a" class="ui-corner-top">
+                        <h1>Wirklich löschen?</h1>
+                    </div>
+                    <div data-role="content" data-theme="b" class="ui-corner-bottom ui-content">
+                        <h3 class="ui-title">Sollen alle deine gespeicherten Lieblingsspeisen entfernt werden?</h3>
+                        <p>
+                            Diese Aktion lässt sich nicht rückgängig machen.
+                        </p>
+                        <a href="#" data-role="button" data-inline="true" data-rel="back" id="deleteAppetizer">Ja</a>
+                        <a href="#" data-role="button" data-inline="true" data-rel="back">Nein</a>
+                    </div>
+                </div>
+
+				<br />
+				<br />
+				<a href="#mainPage" data-transition="pop" data-role="button" data-rel="back" class="saveBackButton">Speichern und Zurück</a>
+			</div>
+		</div><!-- /page -->
+		<!-- Favorites -Page -->
+		<div id="watchlist" data-role="page" data-theme="a"  data-overlay-theme="e">
+			<div data-role="content">
+				<script></script>
+				<h3>MensAppetizer Merkliste</h3>
+				<div data-role="fieldcontain" class="ui-grid-b">
+					<label for="name">Speise eintragen:</label>
+					<input type="text" name="appetizerInput" id="appetizerInput" value=""  />
+				</div>
+				<div class="content-primary">
+					<ul data-role="listview" data-inset="true"></ul>
+				</div>
+				<a href="#watchlist" data-role="button" class="saveAppetizer" data-rel="back">Speichern und Zurück</a>
+			</div><!-- /page -->
+		</div>
+	</body>
+</html>

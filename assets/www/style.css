@@ -1,0 +1,92 @@
+/** Main page **/
+
+/* Header
+ -----------------------------------------------------------------------------------------------------------*/
+#dateString {
+	text-align: center;
+	color: #777777;
+	font-weight: normal;
+	font-style: italic;
+	font-size: small;
+}
+/** Content **/
+#content .today .ui-btn-up-a {
+	border: 1px solid #2D8828/*{a-bdown-border}*/;
+	background: #7AB16A/*{a-bdown-background-color}*/;
+	font-weight: bold;
+	color: #2F3E46/*{a-bdown-color}*/;
+	text-shadow: 0/*{a-bdown-shadow-x}*/1px/*{a-bdown-shadow-y}*/0/*{a-bdown-shadow-radius}*/#ffffff/*{a-bdown-shadow-color}*/;
+	background-image: url(images/heute.png);
+	background-position-x: right;
+	background-repeat: no-repeat;
+}
+#content .today .ui-btn-hover-a {
+	background-image: url(images/heute_hover.png);
+	background-position-x: right;
+	background-repeat: no-repeat;
+}
+.menuEntry {
+	text-align: center;
+	font-size: 60%;
+}
+/* Footer
+ -----------------------------------------------------------------------------------------------------------*/
+#footer {
+	text-align: center;
+}
+.ui-icon-appetizer {
+	background: url(icons/125-food.png) 50% 50% no-repeat;
+	background-size: 25px 20px;
+	width: 30px !important;
+	height: 30px !important;
+	margin-top: -15px;
+}
+/* Below footer: Icon description and copyright
+ -----------------------------------------------------------------------------------------------------------*/
+#copyright {
+	font-size: 60%;
+	color: #CCCCCC;
+	margin-right: 5%;
+	text-align: right;
+	float: right;
+}
+#copyright span {
+	vertical-align: top;
+}
+.iconhelp {
+    font-size: 60%;
+    float: left;
+}
+.iconhelp ul {
+    list-style-type: none;
+    padding-left: 10px;
+}
+.iconhelp img {
+    margin-right: 5px;
+    width: 10px;
+    height: 10px;
+}
+/**-------------------------------------------------------------------------------------------------------**/
+
+/** Appetizer page **/
+#appetizer h3 {
+	text-align: center;
+}
+#appetizerHelp p {
+	text-align: justify;
+	font-size: 75%;
+	height: 60px;
+}
+#appetizerHelp div {
+	float: left;
+	margin-right: 10px;
+	width: 30px;
+	height: 60px;
+	background: url(icons/help.png) 50% 50% no-repeat;
+	background-size: 30px 30px;
+}
+
+/** Settings page **/
+#options h3 {
+    text-align: center;
+}
