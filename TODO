@@ -1,0 +1,12 @@
+########
+## TODO
+########
+
+* Deploy and Test on Android device
+* Minify js-files (be careful to minify jQuery yourself -> because of own fix marked with "TODO FIX")
+
+* Wait to test normal Mensaplan (from 15.10.12)
+
+* Started to change PHP script to PYTHON (php is so ugly...), but tedious amount of work
+
+* Maybe, wait for jQuery Mobile stable build
