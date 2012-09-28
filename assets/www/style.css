@@ -1,92 +1,309 @@
 /** Main page **/
 
+/* Global
+ -----------------------------------------------------------------------------------------------------------*/
+.ui-btn-inner {
+    font-size: 80%;
+}
+
 /* Header
  -----------------------------------------------------------------------------------------------------------*/
 #dateString {
-	text-align: center;
-	color: #777777;
-	font-weight: normal;
-	font-style: italic;
-	font-size: small;
+    text-align: center;
+    color: #777777;
+    font-weight: normal;
+    font-style: italic;
+    font-size: small;
 }
-/** Content **/
+
+/* Content */
+#content {
+    margin: 0px 5px 0px 5px;
+}
+
+#content .ui-btn-inner {
+    font-size: 80%;
+}
+
 #content .today .ui-btn-up-a {
-	border: 1px solid #2D8828/*{a-bdown-border}*/;
-	background: #7AB16A/*{a-bdown-background-color}*/;
-	font-weight: bold;
-	color: #2F3E46/*{a-bdown-color}*/;
-	text-shadow: 0/*{a-bdown-shadow-x}*/1px/*{a-bdown-shadow-y}*/0/*{a-bdown-shadow-radius}*/#ffffff/*{a-bdown-shadow-color}*/;
-	background-image: url(images/heute.png);
-	background-position-x: right;
-	background-repeat: no-repeat;
+    background: #589048 /*{a-bdown-background-color}*/;
+    font-weight: bold;
+    color: #FFF9D9; /*{a-bdown-color}*/;
+    text-shadow: 0 /*{a-bup-shadow-x}*/ 1px /*{a-bup-shadow-y}*/ 1px /*{a-bup-shadow-radius}*/ #111 /*{a-bup-shadow-color}*/;
+    background-image: url(images/heute.png);
+    background-position-x: right;
+    background-repeat: no-repeat;
 }
+
 #content .today .ui-btn-hover-a {
-	background-image: url(images/heute_hover.png);
-	background-position-x: right;
-	background-repeat: no-repeat;
+    background-image: url(images/heute_hover.png);
+    background-position-x: right;
+    background-repeat: no-repeat;
 }
+
+#content .ui-btn-up-a {
+    background: #7AB16A;
+    border-color: #589048;
+    color: #FFFFFF;
+    text-shadow: 0 /*{a-bup-shadow-x}*/ 1px /*{a-bup-shadow-y}*/ 1px /*{a-bup-shadow-radius}*/ #111 /*{a-bup-shadow-color}*/;
+}
+
+#content .ui-collapsible-content {
+    padding: 10px 10px;
+}
+
 .menuEntry {
-	text-align: center;
-	font-size: 60%;
+    text-align: center;
+    font-size: 60%;
 }
+
+.menu {
+    border: 1px solid #EEEEEE;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -o-border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.theke {
+    margin-left: 5%;
+    max-width: 150px;
+    text-align: center;
+    font-style: italic;
+    background: #FFF5B8;
+    border: 1px solid #FBE581;
+    border-bottom: none;
+    border-radius: 10px 10px 0px 0px;
+    -webkit-border-radius: 10px 10px 0px 0px;
+    -moz-border-radius: 10px 10px 0px 0px;
+    -o-border-radius: 10px 10px 0px 0px;
+}
+
+.reference {
+    position: relative;
+    top: -20px;
+    margin-left: auto;
+    width: 50%;
+    border-top: 1px dotted #FBE581;
+    border-left: 1px dotted #FBE581;
+    height: 10px;
+    margin-bottom: -10px;
+}
+
+.menu > .price {
+    z-index: 2;
+    background: #FFF5B8;
+    position: relative;
+    top: -11px;
+    margin-left: auto;
+    right: -11px;
+    width: 40px;
+    border: 1px solid #FBE581;
+    border-radius: 10px 0px 0px 10px;
+    -webkit-border-radius: 10px 0px 0px 10px;
+    -moz-border-radius: 10px 0px 0px 10px;
+    -o-border-radius: 10px 0px 0px 10px;
+}
+
+.menu > .price:first-child {
+    border-radius: 0px 10px 0px 10px;
+    -webkit-border-radius: 0px 10px 0px 10px;
+    -moz-border-radius: 0px 10px 0px 10px;
+    -o-border-radius: 0px 10px 0px 10px;
+}
+
+.noprice {
+    visibility: hidden;
+}
+
+.meal {
+    /* push to top, same height as price */
+    position: relative;
+    top: -15px;
+    margin-bottom: -5px;
+}
+
+.appetized {
+    color: #FF0000;
+}
+
 /* Footer
- -----------------------------------------------------------------------------------------------------------*/
+-----------------------------------------------------------------------------------------------------------*/
 #footer {
-	text-align: center;
+    text-align: center;
 }
-.ui-icon-appetizer {
-	background: url(icons/125-food.png) 50% 50% no-repeat;
-	background-size: 25px 20px;
-	width: 30px !important;
-	height: 30px !important;
-	margin-top: -15px;
+
+#footer .ui-icon-mensapp-appetizer {
+    top: 30%;
+    background: url(uncolored_icons/125-food.png) 50% 50% no-repeat;
+    background-size: 25px 20px;
+    width: 30px !important;
+    height: 30px !important;
 }
+
+/* workaround hide text and center clock */
+#footer .ui-icon-mensapp-clock {
+    background-image: url("uncolored_icons/clock.png");
+}
+
+#footer #openHoursClock {
+    height: 36px;
+}
+
+#openHoursHeader {
+    font-size: 80%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#openHoursContent {
+    text-align: center;
+    min-width: 300px;
+}
+
+#openHoursContent .openHoursNormal {
+    margin: 20px;
+    font-size: 90%;
+}
+
+#openHoursContent .semesterferien {
+    margin: 20px;
+    font-style: italic;
+    font-size: 75%;
+}
+
+#openHoursContent .ka {
+    color: red;
+    margin: 10px;
+    font-style: italic;
+    font-size: 75%;
+}
+
+#openHoursContent .openHoursNormal > div, .semesterferien > div {
+    margin: 5px;
+}
+
+/* adjust width of blocks and draw bottom border */
+#footer .ui-block-a {
+    width: 45%;
+    border-bottom: 1px solid #F7C942;
+}
+
+#footer .ui-block-b {
+    width: 10%;
+    border-bottom: 1px solid #F7C942;
+}
+
+#footer .ui-block-c {
+    width: 45%;
+    border-bottom: 1px solid #F7C942;
+}
+
+/* remove strange bar borders */
+#footer .ui-bar-a {
+    border-left: none;
+    border-right: none;
+}
+
+/* adjust selection bar */
+#footer .ui-select {
+    width: auto;
+}
+
 /* Below footer: Icon description and copyright
- -----------------------------------------------------------------------------------------------------------*/
+-----------------------------------------------------------------------------------------------------------*/
 #copyright {
-	font-size: 60%;
-	color: #CCCCCC;
-	margin-right: 5%;
-	text-align: right;
-	float: right;
+    font-size: 60%;
+    color: #CCCCCC;
+    margin-right: 5%;
+    text-align: right;
+    float: right;
 }
+
 #copyright span {
-	vertical-align: top;
+    vertical-align: top;
 }
+
 .iconhelp {
     font-size: 60%;
     float: left;
 }
+
 .iconhelp ul {
     list-style-type: none;
     padding-left: 10px;
 }
+
 .iconhelp img {
     margin-right: 5px;
     width: 10px;
     height: 10px;
 }
+
+/* Utilities: Loader and Popups
+-----------------------------------------------------------------------------------------------------------*/
+
+.ui-loader {
+    position: absolute;
+    top: 125px;
+}
+
+#popupInfo-options {
+    position: relative;
+    top: 100px;
+    left: 185%;
+}
+
+/**-------------------------------------------------------------------------------------------------------**/
+/** SubPages **/
 /**-------------------------------------------------------------------------------------------------------**/
 
-/** Appetizer page **/
+/* Appetizer page */
 #appetizer h3 {
-	text-align: center;
-}
-#appetizerHelp p {
-	text-align: justify;
-	font-size: 75%;
-	height: 60px;
-}
-#appetizerHelp div {
-	float: left;
-	margin-right: 10px;
-	width: 30px;
-	height: 60px;
-	background: url(icons/help.png) 50% 50% no-repeat;
-	background-size: 30px 30px;
+    text-align: center;
 }
 
-/** Settings page **/
+#appetizerHelp p {
+    text-align: justify;
+    font-size: 75%;
+    height: 60px;
+}
+
+#appetizerHelp div {
+    float: left;
+    margin-right: 10px;
+    width: 30px;
+    height: 60px;
+    background: url(uncolored_icons/help.png) 50% 50% no-repeat;
+    background-size: 30px 30px;
+}
+
+/* Appetizer Watchlist */
+#watchlist .ui-btn-inner {
+    font-size: 80%;
+}
+
+#watchlist label {
+    font-size: 75%;
+}
+
+#watchlistInput {
+    /* FIX: remove strange bottom-line */
+    border-bottom-style: none;
+}
+
+.watchlistDelete {
+    /* FIX: remove strange borders */
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+}
+
+/**-------------------------------------------------------------------------------------------------------**/
+
+/* Settings page */
 #options h3 {
     text-align: center;
 }
