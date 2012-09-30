@@ -242,9 +242,10 @@ $("#mainPage").live("pagebeforecreate", function (event) {
         if (!foodData[selectedMensa]) {
             showLoading();
 
+            // use new script for new MensApp version 2.0
             // TODO: CHANGE FOR PRODUCTION !!!
-            var targetUrl = "http://localhost/getfood.php";
-//            var targetUrl = "http://devinmotion.de/mensapp/getfood.php";
+            var targetUrl = "http://localhost/getfood_2.0.php";
+//            var targetUrl = "http://devinmotion.de/mensapp/getfood_2.0.php";
 
             var params = {
                 "mensa":selectedMensa

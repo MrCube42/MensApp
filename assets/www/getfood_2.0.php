@@ -382,7 +382,7 @@ function saveJsonResult($openHours, $weekdays, $selectedMensa) {
 	$array = array("date" => $date, "mensaId" => $selectedMensa, "foods" => $foodsArray, "openHours" => $openHours);
 	$json = json_encode($array);
 	// save to file
-	$filename = $selectedMensa . '_mensafood_' . $date . '.xml';
+	$filename = $selectedMensa . '_mensafood_' . $date . '_2.0.xml';
 	file_put_contents($filename, $json);
 	// return json
 	return $json;
@@ -391,7 +391,7 @@ function saveJsonResult($openHours, $weekdays, $selectedMensa) {
 // check whether result has been cached
 function checkCache($weekdays, $selectedMensa) {
 	$date = $weekdays[0]['day'] . '-' . $weekdays[4]['day'];
-	$filename = $selectedMensa . '_mensafood_' . $date . '.xml';
+	$filename = $selectedMensa . '_mensafood_' . $date . '_2.0.xml';
 	if (file_exists($filename)) {
 		$data = file_get_contents($filename);
 		return $data;
