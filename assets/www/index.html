@@ -4,14 +4,21 @@
     <title>MensApp</title>
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
     <meta charset="UTF-8">
+    <!-- css stylesheets -->
     <link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.2.0-rc.2.css"/>
     <link rel="stylesheet" href="jquery.mobile/jquery.mobile.mensapp.css"/>
     <link rel="stylesheet" href="style.css"/>
-    <script src="jquery/jquery-1.8.0.js"></script>
+    <!-- phonegap cordova -->
+    <script src="phonegap/cordova-2.1.0.js"/>
+    <script src="phonegap/plugins/statusbarnotification.js" />
+    <!-- call mobile init before jquery -->
     <script src="js/mobileinit.js"></script>
-    <!-- has to be placed before jquery mobile -->
+    <!-- jquery (mobile) -->
+    <script src="jquery/jquery-1.8.0.js"></script>
     <script src="jquery.mobile/jquery.mobile-1.2.0-rc.2.js"></script>
+    <!-- date helper -->
     <script src="js/date.format.js"></script>
+    <!-- this is the main script where the actual mensapp logic happens -->
     <script defer="defer" src="js/default.js"></script>
 </head>
 <body>
