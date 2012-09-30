@@ -1,6 +1,70 @@
 <?php
 
-// used to collect food
+/***
+ *
+ * Author: David Wuerfel (david@devinmotion.de)
+ *
+ * This script is used to extract food data from the Studentenwerk Trier for the MensApp version 2.0
+ * I know that the code is rather ugly, but I think this results from PHP and some of its language
+ * inherited problems and missing functionalities. I'm about to get rid of this script and replace it
+ * with a more readable and elegant PYTHON script.
+ *
+ * The script works as follow: The first user that asks for food for a specific mensa numbered with
+ * selectedMensa starts the script to fetch data from the Studentenwerk. After the data for this mensa
+ * and time period is fetched, the fooddata will be simply saved to disk. Every following user that asks
+ * for the same data will get the saved data from the file. I know that this could cause some problems
+ * and I should replace this with a simple database and queries but this is a plan todo with the new
+ * pyhton script.
+ *
+ * For the time being everything works ok
+ *
+ ***/
+
+ 
+  
+ /**
+  * Start of getfood script
+  **/
+  
+// get the selected mensa or tarforst (1) by default
+$selectedMensa = 1;
+if (!empty($_GET)) {
+	$selectedMensa = htmlspecialchars($_GET['mensa']);
+	// check whether this is a proper mensa value
+	if ($selectedMensa != 1 || $selectedMensa != 2 || $selectedMensa != 5 || $selectedMensa != 6 || $selectedMensa != 7 || $selectedMensa != 8 || $selectedMensa != 10) {
+		$selectedMensa = 1;
+	}
+}
+
+// save weekdays with date and foodstring
+$weekdays = array(0 => array('day' => null, 'food' => null), 1 => array('day' => null, 'food' => null), 2 => array('day' => null, 'food' => null), 3 => array('day' => null, 'food' => null), 4 => array('day' => null, 'food' => null));
+// compute current weekdays
+$weekdays = weekNow($weekdays);
+
+// check whether data is already cached in file
+$data = checkCache($weekdays, $selectedMensa);
+//// TODO: REMOVE FOR PRODUCTION
+//$data = null;
+// if not extract openHours, fooddata and save result to file
+if ($data == null) {
+	$openHours = extractOpenHours(0, $weekdays, $selectedMensa);
+	// get stammessen for all weekdays
+	for ($day = 0; $day < 5; $day++) {
+		$weekdays = extractFood($day, $weekdays, $selectedMensa);
+	}
+	// and save the result
+	$data = saveJsonResult($openHours, $weekdays, $selectedMensa);
+}
+echo $data;
+
+
+
+ /**
+  * Classes and Helpers
+  * 
+  **/
+  
+// helper class used to collect food
 class Food {
 	public $foodHead = "";
 	public $foodMenu = "";
@@ -44,36 +108,13 @@ class Food {
 
 }
 
-// get the selected mensa or tarforst (1) by default
-$selectedMensa = 1;
-if (!empty($_GET)) {
-	$selectedMensa = htmlspecialchars($_GET['mensa']);
-}
 
-// save weekdays with date and foodstring
-$weekdays = array(0 => array('day' => null, 'food' => null), 1 => array('day' => null, 'food' => null), 2 => array('day' => null, 'food' => null), 3 => array('day' => null, 'food' => null), 4 => array('day' => null, 'food' => null));
-// compute currently weekdays
-$weekdays = weekNow($weekdays);
 
-$openHours = "";
-
-// check whether data is cached in file
-$data = checkCache($weekdays, $selectedMensa);
-// TODO: REMOVE FOR PRODUCTION
-$data = null;
-if ($data != null) {
-	echo $data;
-} else {
-	$openHours = extractOpenHours(0, $weekdays, $selectedMensa);
-	// if not, get stammessen for all weekdays
-	for ($day = 0; $day < 5; $day++) {
-		$weekdays = extractFood($day, $weekdays, $selectedMensa);
-	}
-	// and cave the result
-	$data = saveJsonResult($openHours, $weekdays, $selectedMensa);
-	echo $data;
-}
-
+/*
+ * Functions and Helpers
+ * 
+ */
+ 
 // compute weekdays that must be requested
 function weekNow($weekdays) {
 	// current weekday
@@ -105,6 +146,7 @@ function weekNow($weekdays) {
 	return $weekdays;
 }
 
+// extract the div that is used to present the opening hours of each mensa
 function extractOpenHours($day, $weekdays, $selectedMensa) {
 	$openHours = "";
 	$targetUrl = "http://studiwerk.cms.rdts.de/cgi-bin/cms?_SID=NEW&_bereich=system&_aktion=export_speiseplan";
@@ -181,7 +223,7 @@ function extractOpenHours($day, $weekdays, $selectedMensa) {
 	return $openHours;
 }
 
-// requests Studiwerk and extracts the XML-Code properly
+// requests Studiwerk and extracts fooddata from the XML-Code
 function extractFood($day, $weekdays, $selectedMensa) {
 	$targetUrl = "http://studiwerk.cms.rdts.de/cgi-bin/cms?_SID=NEW&_bereich=system&_aktion=export_speiseplan";
 	$targetUrl = $targetUrl . '&datum=' . $weekdays[$day]['day'];
@@ -195,6 +237,16 @@ function extractFood($day, $weekdays, $selectedMensa) {
 	$foods = "";
 	$mensa = $array['mensa-' . $selectedMensa];
 	$menues = array();
+
+	// look for general price
+	$generalPrice = "";
+	if (array_key_exists('einstellungen', $mensa)) {
+		if (array_key_exists("preis", $mensa['einstellungen'])) {
+			$generalPrice = $mensa['einstellungen']['preis'];
+		} else if (array_key_exists("preis-1", $mensa['einstellungen'])) {
+			$generalPrice = $mensa['einstellungen']['preis-1'];
+		}
+	}
 
 	// go through all menues and all columns and collect food
 	foreach ($mensa as $menue => $value) {
@@ -236,9 +288,10 @@ function extractFood($day, $weekdays, $selectedMensa) {
 				}
 				// collect each zeile (so the actual food)
 				if (strpos($subkey, "zeile") > -1) {
-					//TODO NEW: add students price
+					// get the meal itself
 					$f = $subvalue['text'];
 					if (sizeof($f) > 0) {
+						// try to get the meals price
 						$p = -1;
 						if (array_key_exists("preis-1", $subvalue)) {
 							$p = $subvalue['preis-1'];
@@ -247,14 +300,14 @@ function extractFood($day, $weekdays, $selectedMensa) {
 							}
 						}
 						if ($p == -1) {
-							// tarforst, geomensa, schneidershof
-							if (!$wasStammessen && (hasStammessenString($f) || isGeoMensaMenue1($menue, $selectedMensa) || $selectedMensa == 7)) {
-								// if stammessen add stammessen price automatically
-								$food -> foodMenu .= "<div class='price'>2,30</div><div class='reference'/>";
+							// if not directly connected to the food check for general food price
+							if (!$wasStammessen && strlen($generalPrice) > 0) {
+								$food -> foodMenu .= "<div class='price'>" . $generalPrice . "</div><div class='reference'/>";
 							} else {
 								$food -> foodMenu .= "<div class='price noprice'>" . $p . "</div><div class='reference noprice'/>";
 							}
 						} else {
+							// add div to reference the price to the meal
 							$food -> foodMenu .= "<div class='price'>" . $p . "</div><div class='reference'/>";
 						}
 						$wasStammessen = true;
@@ -278,6 +331,7 @@ function extractFood($day, $weekdays, $selectedMensa) {
 	$foods = removeAlternativeString($foods);
 	$foods = removeNumberString($foods);
 	$foods = removeWhitespaces($foods);
+	
 	// replace the icon markers with actual symbols
 	$foods = putIcons($foods);
 
@@ -291,7 +345,7 @@ function extractFood($day, $weekdays, $selectedMensa) {
 	return $weekdays;
 }
 
-// removes (1,2,3,4,5) from the foodsstring
+// removes footnotes (1,2,3,4,5) from the foodsstring
 function removeNumberString($string) {
 	$string = preg_replace('/\([\d,]*\d\)/', '', $string);
 	return $string;
@@ -338,6 +392,7 @@ function isTarforstMenue1NotClosed($string, $menue, $selectedMensa) {
 	return FALSE;
 }
 
+// look whether if menue-1 from geomensa is selected -> so geo mensa stammessen
 function isGeoMensaMenue1($menue, $selectedMensa) {
 	if ($selectedMensa == 8) {
 		if (strpos($menue, "menue-1") > -1) {
@@ -381,7 +436,7 @@ function saveJsonResult($openHours, $weekdays, $selectedMensa) {
 	}
 	$array = array("date" => $date, "mensaId" => $selectedMensa, "foods" => $foodsArray, "openHours" => $openHours);
 	$json = json_encode($array);
-	// save to file
+	// save to file (ending 2.0 for new version)
 	$filename = $selectedMensa . '_mensafood_' . $date . '_2.0.xml';
 	file_put_contents($filename, $json);
 	// return json
@@ -391,6 +446,7 @@ function saveJsonResult($openHours, $weekdays, $selectedMensa) {
 // check whether result has been cached
 function checkCache($weekdays, $selectedMensa) {
 	$date = $weekdays[0]['day'] . '-' . $weekdays[4]['day'];
+	// ending 2.0 for new version
 	$filename = $selectedMensa . '_mensafood_' . $date . '_2.0.xml';
 	if (file_exists($filename)) {
 		$data = file_get_contents($filename);
@@ -399,4 +455,5 @@ function checkCache($weekdays, $selectedMensa) {
 		return null;
 	}
 }
+
 ?>
