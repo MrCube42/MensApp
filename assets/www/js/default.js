@@ -1,3 +1,7 @@
+/***
+ * Author: David Wuerfel (david@devinmotion.de)
+ ***/
+
 // before page is created - initial jQuery Mobile function
 $("#mainPage").live("pagebeforecreate", function (event) {
 
@@ -6,36 +10,35 @@ $("#mainPage").live("pagebeforecreate", function (event) {
      *         - defining notification behavior when appetizers found
      */
 
-//    // TODO: COMMENT-IN AND USE FOR PRODUCTION !!!
-//    // phongap API uses
-//    function onDeviceReady() {
-//        // add menubutton function
-//        document.addEventListener("menubutton", openOptions, false);
-//        showAppetizerNotification = function (itemsFound) {
-//            navigator.notification.vibrate(250);
-//            var message = "";
-//            for (item in itemsFound) {
-//                message += item + " (";
-//                for (day in itemsFound[item]) {
-//                    message += itemsFound[item][day];
-//                    message += ",";
-//                }
-//                message = message.substr(0, message.lastIndexOf(','));
-//                message += "), ";
-//            }
-//            message = message.substr(0, message.lastIndexOf(', '));
-//            window.plugins.statusBarNotification.notify("MensAppetizer", message);
-//        }
-//        updateFoodData();
-//
-//        // phones back button can open options dialog
-//        function openOptions() {
-//            $.mobile.changePage("#options", {
-//                transition:"slidedown",
-//                role:"dialog"
-//            });
-//        }
-//    }
+        // TODO: COMMENT-IN AND USE FOR PRODUCTION !!!
+        // phonegap API uses
+    function onDeviceReady() {
+        // add menubutton function -> open options
+        document.addEventListener("menubutton", function () {
+            // phones back button can open options page
+            $.mobile.changePage("#options", {
+                transition:"slideup",
+                role:"page"
+            });
+        }, false);
+
+        // add notification handling on found appetized food
+        showAppetizerNotification = function (itemsFound) {
+            navigator.notification.vibrate(250);
+            var message = "";
+            for (item in itemsFound) {
+                message += item + " (";
+                for (day in itemsFound[item]) {
+                    message += itemsFound[item][day];
+                    message += ",";
+                }
+                message = message.substr(0, message.lastIndexOf(','));
+                message += "), ";
+            }
+            message = message.substr(0, message.lastIndexOf(', '));
+            window.plugins.statusBarNotification.notify("MensAppetizer", message);
+        }
+    }
 
 
     /** Basic Initilization:
@@ -45,7 +48,7 @@ $("#mainPage").live("pagebeforecreate", function (event) {
      */
 
     // global variables
-    // Tarforst as default
+    // tarforst as default
     var selectedMensa = 1;
     var weekString = null;
     var foodData = {
@@ -65,7 +68,7 @@ $("#mainPage").live("pagebeforecreate", function (event) {
     var useAppetizer = false;
     var appetizer = null;
 
-    // time values
+    // time value constants
     var MESSAGE_APPEARANCE_TIME = 1000;
     var DELETING_TIME = 500;
     var TIME_TILL_POPOUT = 150;
@@ -89,14 +92,7 @@ $("#mainPage").live("pagebeforecreate", function (event) {
     $(".saveAppetizer").bind("click", saveAppetizer);
 
     // close open hours popup on click/touch
-    $("#popupOpenHours").live("click", function () {
-        // workaround for strange behavior on popout
-        $("#popupOpenHours").hide();
-        $("#popupOpenHours").popup("close");
-        window.setTimeout(function () {
-            $("#popupOpenHours").show();
-        }, TIME_TILL_POPOUT);
-    });
+    $("#popupOpenHours").live("click", closeOpenHours);
 
     // load initial data and settings
     loadDateStrings();
@@ -104,9 +100,9 @@ $("#mainPage").live("pagebeforecreate", function (event) {
 
     expandWeekDayToday();
 
-//    // TODO: COMMENT-IN AND USE FOR PRODUCTION!!!
-//    // Now safe to use the PhoneGap API
-//    document.addEventListener("deviceready", onDeviceReady, false);
+    // TODO: COMMENT-IN AND USE FOR PRODUCTION!!!
+    // Now safe to use the PhoneGap API
+    document.addEventListener("deviceready", onDeviceReady, false);
 
     // jquery mobile initialization
     // on page init (use this in jquery-mobile rather than document.ready)
@@ -206,6 +202,19 @@ $("#mainPage").live("pagebeforecreate", function (event) {
         for (i = 1; i <= foodData.length; i++) {
             localStorage.removeItem("mensapp:data:" + i);
         }
+
+        window.setTimeout(function () {
+            showMessage("Daten gelöscht. Werden nun wiederhergestellt.", "", "options");
+            // after
+            window.setTimeout(function () {
+                updateFoodData();
+            }, MESSAGE_APPEARANCE_TIME)
+        }, DELETING_TIME)
+    }
+
+    // clears the menu entries and updates the fooddata
+    function updateFoodData() {
+        $(".menuEntry").empty();
         foodData = {
             1:null,
             2:null,
@@ -220,18 +229,6 @@ $("#mainPage").live("pagebeforecreate", function (event) {
             11:null,
             12:null
         };
-        window.setTimeout(function () {
-            showMessage("Daten gelöscht. Werden nun wiederhergestellt.", "", "options");
-            // after
-            window.setTimeout(function () {
-                updateFoodData();
-            }, MESSAGE_APPEARANCE_TIME)
-        }, DELETING_TIME)
-    }
-
-    // clears the menu entries and updates the fooddata
-    function updateFoodData() {
-        $(".menuEntry").empty();
         loadFoodData();
     }
 
@@ -244,8 +241,8 @@ $("#mainPage").live("pagebeforecreate", function (event) {
 
             // use new script for new MensApp version 2.0
             // TODO: CHANGE FOR PRODUCTION !!!
-            var targetUrl = "http://localhost/getfood_2.0.php";
-//            var targetUrl = "http://devinmotion.de/mensapp/getfood_2.0.php";
+//            var targetUrl = "http://localhost/getfood_2.0.php";
+            var targetUrl = "http://devinmotion.de/mensapp/getfood_2.0.php";
 
             var params = {
                 "mensa":selectedMensa
@@ -326,17 +323,14 @@ $("#mainPage").live("pagebeforecreate", function (event) {
     // deletes all settings of mensapp from the localstorage and adjusts frontend controls
     function deleteSettingsCache() {
         localStorage.removeItem("mensapp:settings");
-        clearSettings();
-
-        function clearSettings() {
-            $("#selectedMensaOption")[0].checked = false;
-            $("#selectedMensaOption").trigger("click");
-            $("#selectedMensaOption")[0].checked = false;
-            $("#useAppetizerOption")[0].checked = false;
-            $("#useAppetizerOption").trigger("click");
-            $("#useAppetizerOption")[0].checked = false;
-            useAppetizer = false;
-        }
+        // little workaround because triggering of options doesn't work properly
+        $("#selectedMensaOption")[0].checked = false;
+        $("#selectedMensaOption").trigger("click");
+        $("#selectedMensaOption")[0].checked = false;
+        $("#useAppetizerOption")[0].checked = false;
+        $("#useAppetizerOption").trigger("click");
+        $("#useAppetizerOption")[0].checked = false;
+        useAppetizer = false;
     }
 
     // saves all the settings to the localstorage
@@ -440,7 +434,6 @@ $("#mainPage").live("pagebeforecreate", function (event) {
         appetizer = toSave;
         // save appetizer in local storage
         toSave = JSON.stringify(toSave);
-        console.log(toSave)
         localStorage.setItem("mensapp:appetizer", toSave);
         // look for appetizerfood if appetizer has changed
         if (!appetizersAreEqual(oldAppetizer, appetizer)) {
@@ -573,6 +566,16 @@ $("#mainPage").live("pagebeforecreate", function (event) {
         $("#watchlist ul").listview("refresh");
     }
 
+    // close openHours on click/touch
+    function closeOpenHours() {
+        // workaround for strange behavior on popout
+        $("#popupOpenHours").hide();
+        $("#popupOpenHours").popup("close");
+        window.setTimeout(function () {
+            $("#popupOpenHours").show();
+        }, TIME_TILL_POPOUT);
+    }
+
     // shows a message box that fades out
     function showMessage(message, messageHeader, origin) {
         var popupId = "#popupInfo-" + origin;
@@ -591,7 +594,7 @@ $("#mainPage").live("pagebeforecreate", function (event) {
         // hide content and load
         $("#content").css("visibility", "hidden");
         // wait a moment and disable select menu
-        window.setTimeout(function() {
+        window.setTimeout(function () {
             $("#mensaSelect").selectmenu("disable");
         }, TIME_TILL_POPOUT);
         $.mobile.loading("show");
@@ -600,7 +603,10 @@ $("#mainPage").live("pagebeforecreate", function (event) {
     // hide spinner, show content and enable select menu after loading
     function hideLoading(hideContent) {
         $.mobile.loading("hide");
-        $("#mensaSelect").selectmenu("enable");
+        // wait a moment and enable select menu
+        window.setTimeout(function () {
+            $("#mensaSelect").selectmenu("enable");
+        }, TIME_TILL_POPOUT);
         if (!hideContent) {
             $("#content").css("visibility", "visible");
         }
