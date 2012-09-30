@@ -167,3 +167,9 @@ pip-log.txt
 ############
 
 .\idea
+
+############
+## MensApp TempData
+############
+
+*_mensafood_*.xml
