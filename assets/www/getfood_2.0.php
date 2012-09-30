@@ -31,7 +31,7 @@ $selectedMensa = 1;
 if (!empty($_GET)) {
 	$selectedMensa = htmlspecialchars($_GET['mensa']);
 	// check whether this is a proper mensa value
-	if ($selectedMensa != 1 || $selectedMensa != 2 || $selectedMensa != 5 || $selectedMensa != 6 || $selectedMensa != 7 || $selectedMensa != 8 || $selectedMensa != 10) {
+	if (!($selectedMensa != 1 || $selectedMensa != 2 || $selectedMensa != 5 || $selectedMensa != 6 || $selectedMensa != 7 || $selectedMensa != 8 || $selectedMensa != 10)) {
 		$selectedMensa = 1;
 	}
 }
