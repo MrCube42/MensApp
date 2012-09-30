@@ -199,7 +199,8 @@ $("#mainPage").live("pagebeforecreate", function (event) {
 
     // deletes all the fooddata cache in local storage
     function deleteFoodDataCache() {
-        for (i = 1; i <= foodData.length; i++) {
+        // foodData.length doesn't work, but is == 12
+        for (i = 1; i <= 12; i++) {
             localStorage.removeItem("mensapp:data:" + i);
         }
 
