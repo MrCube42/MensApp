@@ -5,25 +5,25 @@
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
     <meta charset="UTF-8">
     <!-- css stylesheets -->
-	<!-- custom jquery mobile theme has to be placed before jquery mobile structure-css -->
-	<link rel="stylesheet" href="jquery.mobile/jquery.mobile.mensapp.css"/>
+    <!-- custom jquery mobile theme has to be placed before jquery mobile structure-css -->
+    <link rel="stylesheet" href="jquery.mobile/jquery.mobile.mensapp.css"/>
     <link rel="stylesheet" href="jquery.mobile/jquery.mobile.structure-1.2.0.css"/>
     <link rel="stylesheet" href="style.css"/>
     <!-- phonegap cordova -->
     <script src="phonegap/cordova-2.1.0.js"/>
-    <script src="phonegap/plugins/statusbarnotification.js" />
+    <script src="phonegap/plugins/statusbarnotification.js"/>
     <!-- workaround: access $ so that it is initialized -->
     <script>$</script>
-	<!-- jquery framework before jquery mobile -->
-    <script src="jquery/jquery-1.8.2.js"></script>
+    <!-- jquery framework before jquery mobile -->
+    <script src="jquery/jquery-1.8.2.js"/>
     <!-- call mobile init between jquery and jquery mobile -->
-    <script src="js/mobileinit.js"></script>
+    <script src="js/mobileinit.js"/>
     <!-- date helper -->
-    <script src="js/date.format.js"></script>
+    <script src="js/date.format.js"/>
     <!-- this is the main script where the actual mensapp logic happens -->
-    <script src="js/default.js"></script>
-	<!-- jquery (mobile) -->
-    <script src="jquery.mobile/jquery.mobile-1.2.0.js"></script>
+    <script src="js/default.js"/>
+    <!-- jquery (mobile) -->
+    <script src="jquery.mobile/jquery.mobile-1.2.0.js"/>
 </head>
 <body>
 <!-- Mainpage -->
@@ -83,14 +83,16 @@
                     <a href="#appetizer" data-icon="mensapp-appetizer" class="ui-btn-icon-left">MensAppetizer</a>
                 </li>
                 <li>
-                    <a id="openHoursClock" href="#popupOpenHours" data-rel="popup" data-icon="mensapp-clock" class="ui-btn-icon-bottom"></a>
+                    <a id="openHoursClock" href="#popupOpenHours" data-rel="popup" data-icon="mensapp-clock"
+                       class="ui-btn-icon-bottom"></a>
                 </li>
                 <li>
                     <a href="#options" data-icon="gear">Einstellungen</a>
                 </li>
             </ul>
         </div>
-        <div data-role="popup" data-transition="pop" id="popupOpenHours" data-position-to="#content" class="ui-corner-all">
+        <div data-role="popup" data-transition="pop" id="popupOpenHours" data-position-to="#content"
+             class="ui-corner-all">
             <div data-role="header" class="ui-corner-top">
                 <h3 id="openHoursHeader">Öffnungszeiten</h3>
             </div>
@@ -192,7 +194,8 @@
         <br/>
         <a href="#mainPage" data-role="button" class="saveBackButton" data-rel="back">Speichern und Zurück</a>
 
-        <div data-role="popup" id="popupInfo-options" data-position-to="#popupDeleteFoodData" class="ui-content" data-theme="a"
+        <div data-role="popup" id="popupInfo-options" data-position-to="#popupDeleteFoodData" class="ui-content"
+             data-theme="a"
              style="max-width:350px;">
             <h3></h3>
 
@@ -220,7 +223,8 @@
         <a href="#watchlist" data-rel="dialog" data-role="button">Merkliste bearbeiten</a>
         <a href="#popupDeleteAppetizer" data-rel="popup" data-role="button">Merkliste löschen</a>
 
-        <div data-role="popup" data-transition="pop" id="popupDeleteAppetizer" style="max-width:400px;" class="ui-corner-all">
+        <div data-role="popup" data-transition="pop" id="popupDeleteAppetizer" style="max-width:400px;"
+             class="ui-corner-all">
             <div data-role="header" data-theme="a" class="ui-corner-top">
                 <h1>Wirklich löschen?</h1>
             </div>
