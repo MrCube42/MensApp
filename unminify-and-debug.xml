@@ -1,0 +1,95 @@
+<project name="MensApp" default="full">
+	
+    <!-- source directories -->
+	<property name="phonegap_dir" location="${basedir}\assets\www\phonegap" />
+	<property name="js_dir" location="${basedir}\assets\www\js" />
+	<property name="jquery_dir" location="${basedir}\assets\www\jquery" />
+	<property name="jquery_mobile_dir" location="${basedir}\assets\www\jquery.mobile" />
+	<property name="phonegap_dir" location="${basedir}\assets\www\phonegap" />
+	<property name="phonegap_plugin_dir" location="${basedir}\assets\www\phonegap\plugins" />
+	<property name="css_dir" location="${basedir}\assets\www" />
+	<property name="index_dir" location="${basedir}\assets\www" />
+	<property name="save_dir" location="${basedir}\..\save" />
+    
+   	<target name="clean_minified">
+		<!-- Clean minified files. -->
+		<delete file="${js_dir}\date.format-min.js" />
+		<delete file="${js_dir}\mobileinit-min.js" />
+		<delete file="${js_dir}\default-min.js" />
+		<delete file="${jquery_mobile_dir}\jquery.mobile-1.2.0-min.js" />
+		<delete file="${phonegap_dir}\cordova-2.1.0-min.js" />
+		<delete file="${phonegap_plugin_dir}\statusbarnotification-min.js" />
+		<delete file="${jquery_dir}\jquery-1.8.2.min.js" />
+		<delete file="${css_dir}\style-min.css" />
+		<delete file="${jquery_mobile_dir}\jquery.mobile.mensapp-min.css" />
+		<delete file="${jquery_mobile_dir}\jquery.mobile.structure-1.2.0.min.css" />
+		<echo>Minified files removed.</echo>
+	</target>
+	
+	<target name="get_originals" depends="clean_minified">
+		<!-- Move original files from save folder back to source dir -->
+		<!-- Move the original js-files back to source dir -->
+		<move file="${save_dir}\date.format.js" tofile="${js_dir}\date.format.js" />
+		<move file="${save_dir}\default.js" tofile="${js_dir}\default.js" />
+		<move file="${save_dir}\mobileinit.js" tofile="${js_dir}\mobileinit.js" />
+		<move file="${save_dir}\jquery.mobile-1.2.0.js" tofile="${jquery_mobile_dir}\jquery.mobile-1.2.0.js" />
+		<move file="${save_dir}\jquery-1.8.2.js" tofile="${jquery_dir}\jquery-1.8.2.js" />
+		<move file="${save_dir}\cordova-2.1.0.js" tofile="${phonegap_dir}\cordova-2.1.0.js" />
+		<move file="${save_dir}\statusbarnotification.js" tofile="${phonegap_plugin_dir}\statusbarnotification.js" />
+		<echo>Original js Files moved back to source directory.</echo>
+		<!--  Move the original css-files back to source dir -->
+		<move file="${save_dir}\style.css" tofile="${css_dir}\style.css" />
+		<move file="${save_dir}\jquery.mobile.mensapp.css" tofile="${jquery_mobile_dir}\jquery.mobile.mensapp.css" />
+		<move file="${save_dir}\jquery.mobile.structure-1.2.0.css" tofile="${jquery_mobile_dir}\jquery.mobile.structure-1.2.0.css" />
+		<echo>Original css Files moved back to source directory.</echo>
+		<!-- Move getFood_2.0.php from back to source dir -->
+		<move file="${save_dir}\getfood_2.0.php" tofile="${index_dir}\getfood_2.0.php" />
+		<echo>getfood moved back.</echo>
+	</target>
+    
+	<target name="change_index" depends="get_originals">
+	    <replace file="${index_dir}/index.html" encoding="UTF-8"
+	        token='link rel="stylesheet" href="jquery.mobile/jquery.mobile.mensapp-min.css"'
+	        value='link rel="stylesheet" href="jquery.mobile/jquery.mobile.mensapp.css"'/>
+   	    <replace file="${index_dir}/index.html" encoding="UTF-8"
+	        token='link rel="stylesheet" href="jquery.mobile/jquery.mobile.structure-1.2.0.min.css"'
+	        value='link rel="stylesheet" href="jquery.mobile/jquery.mobile.structure-1.2.0.css"'/>
+   	    <replace file="${index_dir}/index.html" encoding="UTF-8"
+	        token='link rel="stylesheet" href="style-min.css"'
+	        value='link rel="stylesheet" href="style.css"'/>
+  	    <replace file="${index_dir}/index.html" encoding="UTF-8"
+	        token='script src="phonegap/cordova-2.1.0-min.js"'
+	        value='script src="phonegap/cordova-2.1.0.js"'/>
+	    <replace file="${index_dir}/index.html" encoding="UTF-8"
+	        token='script src="phonegap/plugins/statusbarnotification-min.js"'
+	        value='script src="phonegap/plugins/statusbarnotification.js"'/>
+	    <replace file="${index_dir}/index.html" encoding="UTF-8"
+	        token='script src="js/mobileinit-min.js"'
+	        value='script src="js/mobileinit.js"'/>
+	    <replace file="${index_dir}/index.html" encoding="UTF-8"
+	        token='script src="js/date.format-min.js"'
+	        value='script src="js/date.format.js"'/>
+   	    <replace file="${index_dir}/index.html" encoding="UTF-8"
+	        token='script src="js/default-min.js"'
+	        value='script src="js/default.js"'/>
+	    <replace file="${index_dir}/index.html" encoding="UTF-8"
+	        token='script src="jquery.mobile/jquery.mobile-1.2.0-min.js"'
+	        value='script src="jquery.mobile/jquery.mobile-1.2.0.js"'/>
+	    <echo>index.html does now use minified file versions.</echo>
+	</target>
+	
+	<target name="replace_local_getfood" depends="clean_minified">
+	    <replace file="${js_dir}/default.js" encoding="UTF-8"
+	        token='//var targetUrl = "http://localhost/getfood_2.0.php";'
+	        value='var targetUrl = "http://localhost/getfood_2.0.php";'/>
+   	    <replace file="${js_dir}/default.js" encoding="UTF-8"
+	        token='var targetUrl = "http://devinmotion.de/mensapp/getfood_2.0.php";'
+	        value='//var targetUrl = "http://devinmotion.de/mensapp/getfood_2.0.php";'/>
+   	    <echo>Replace remote getfood with local getfood</echo>
+	</target>
+	
+	<target name="full" depends="change_index,replace_local_getfood">
+		<echo>Fully reverted minification!</echo>
+	</target>
+
+</project>
