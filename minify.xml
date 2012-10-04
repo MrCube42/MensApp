@@ -94,31 +94,31 @@
 	</target>
 	
 	<target name="change_index" depends="clean_after">
-	    <replace file="${index_dir}/index.html"
+	    <replace file="${index_dir}/index.html" encoding="UTF-8"
 	        token='link rel="stylesheet" href="jquery.mobile/jquery.mobile.mensapp.css"/'
 	        value='link rel="stylesheet" href="jquery.mobile/jquery.mobile.mensapp.min.css"/'/>
-   	    <replace file="${index_dir}/index.html"
+   	    <replace file="${index_dir}/index.html" encoding="UTF-8"
 	        token='link rel="stylesheet" href="jquery.mobile/jquery.mobile.structure-1.2.0.css"/'
 	        value='link rel="stylesheet" href="jquery.mobile/jquery.mobile.structure-1.2.0.min.css"/'/>
-   	    <replace file="${index_dir}/index.html"
+   	    <replace file="${index_dir}/index.html" encoding="UTF-8"
 	        token='link rel="stylesheet" href="style.css"/'
 	        value='link rel="stylesheet" href="style-min.css"/'/>
-  	    <replace file="${index_dir}/index.html"
+  	    <replace file="${index_dir}/index.html" encoding="UTF-8"
 	        token='script src="phonegap/cordova-2.1.0.js"/'
 	        value='script src="phonegap/cordova-2.1.0-min.js"/'/>
-	    <replace file="${index_dir}/index.html"
+	    <replace file="${index_dir}/index.html" encoding="UTF-8"
 	        token='script src="phonegap/plugins/statusbarnotification.js"/'
 	        value='script src="phonegap/plugins/statusbarnotification-min.js"/'/>
-	    <replace file="${index_dir}/index.html"
+	    <replace file="${index_dir}/index.html" encoding="UTF-8"
 	        token='script src="js/mobileinit.js"/'
 	        value='script src="js/mobileinit-min.js"/'/>
-	    <replace file="${index_dir}/index.html"
+	    <replace file="${index_dir}/index.html" encoding="UTF-8"
 	        token='script src="js/date.format.js"/'
 	        value='script src="js/date.format-min.js"/'/>
-   	    <replace file="${index_dir}/index.html"
+   	    <replace file="${index_dir}/index.html" encoding="UTF-8"
 	        token='script src="js/default.js"/'
 	        value='script src="js/default-min.js"/'/>
-	    <replace file="${index_dir}/index.html"
+	    <replace file="${index_dir}/index.html" encoding="UTF-8"
 	        token='script src="jquery.mobile/jquery.mobile-1.2.0.js"/'
 	        value='script src="jquery.mobile/jquery.mobile-1.2.0-min.js"/'/>
 	    <echo>index.html does now use minified file versions.</echo>
