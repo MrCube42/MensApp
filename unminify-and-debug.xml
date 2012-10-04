@@ -29,21 +29,21 @@
 	<target name="get_originals" depends="clean_minified">
 		<!-- Move original files from save folder back to source dir -->
 		<!-- Move the original js-files back to source dir -->
-		<move file="${save_dir}\date.format.js" tofile="${js_dir}\date.format.js" />
-		<move file="${save_dir}\default.js" tofile="${js_dir}\default.js" />
-		<move file="${save_dir}\mobileinit.js" tofile="${js_dir}\mobileinit.js" />
-		<move file="${save_dir}\jquery.mobile-1.2.0.js" tofile="${jquery_mobile_dir}\jquery.mobile-1.2.0.js" />
-		<move file="${save_dir}\jquery-1.8.2.js" tofile="${jquery_dir}\jquery-1.8.2.js" />
-		<move file="${save_dir}\cordova-2.1.0.js" tofile="${phonegap_dir}\cordova-2.1.0.js" />
-		<move file="${save_dir}\statusbarnotification.js" tofile="${phonegap_plugin_dir}\statusbarnotification.js" />
+		<copy file="${save_dir}\date.format.js" tofile="${js_dir}\date.format.js" />
+		<copy file="${save_dir}\default.js" tofile="${js_dir}\default.js" />
+		<copy file="${save_dir}\mobileinit.js" tofile="${js_dir}\mobileinit.js" />
+		<copy file="${save_dir}\jquery.mobile-1.2.0.js" tofile="${jquery_mobile_dir}\jquery.mobile-1.2.0.js" />
+		<copy file="${save_dir}\jquery-1.8.2.js" tofile="${jquery_dir}\jquery-1.8.2.js" />
+		<copy file="${save_dir}\cordova-2.1.0.js" tofile="${phonegap_dir}\cordova-2.1.0.js" />
+		<copy file="${save_dir}\statusbarnotification.js" tofile="${phonegap_plugin_dir}\statusbarnotification.js" />
 		<echo>Original js Files moved back to source directory.</echo>
 		<!--  Move the original css-files back to source dir -->
-		<move file="${save_dir}\style.css" tofile="${css_dir}\style.css" />
-		<move file="${save_dir}\jquery.mobile.mensapp.css" tofile="${jquery_mobile_dir}\jquery.mobile.mensapp.css" />
-		<move file="${save_dir}\jquery.mobile.structure-1.2.0.css" tofile="${jquery_mobile_dir}\jquery.mobile.structure-1.2.0.css" />
+		<copy file="${save_dir}\style.css" tofile="${css_dir}\style.css" />
+		<copy file="${save_dir}\jquery.mobile.mensapp.css" tofile="${jquery_mobile_dir}\jquery.mobile.mensapp.css" />
+		<copy file="${save_dir}\jquery.mobile.structure-1.2.0.css" tofile="${jquery_mobile_dir}\jquery.mobile.structure-1.2.0.css" />
 		<echo>Original css Files moved back to source directory.</echo>
 		<!-- Move getFood_2.0.php from back to source dir -->
-		<move file="${save_dir}\getfood_2.0.php" tofile="${index_dir}\getfood_2.0.php" />
+		<copy file="${save_dir}\getfood_2.0.php" tofile="${index_dir}\getfood_2.0.php" />
 		<echo>getfood moved back.</echo>
 	</target>
     
@@ -63,6 +63,9 @@
 	    <replace file="${index_dir}/index.html" encoding="UTF-8"
 	        token='script src="phonegap/plugins/statusbarnotification-min.js"'
 	        value='script src="phonegap/plugins/statusbarnotification.js"'/>
+   	    <replace file="${index_dir}/index.html" encoding="UTF-8"
+	        token='script src="jquery/jquery-1.8.2.min.js"'
+	        value='script src="jquery/jquery-1.8.2.js"'/>
 	    <replace file="${index_dir}/index.html" encoding="UTF-8"
 	        token='script src="js/mobileinit-min.js"'
 	        value='script src="js/mobileinit.js"'/>

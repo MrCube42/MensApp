@@ -153,6 +153,9 @@
 	    <replace file="${index_dir}/index.html" encoding="UTF-8"
 	        token='script src="phonegap/plugins/statusbarnotification.js"'
 	        value='script src="phonegap/plugins/statusbarnotification-min.js"'/>
+   	    <replace file="${index_dir}/index.html" encoding="UTF-8"
+	        token='script src="jquery/jquery-1.8.2.js"'
+	        value='script src="jquery/jquery-1.8.2.min.js"'/>
 	    <replace file="${index_dir}/index.html" encoding="UTF-8"
 	        token='script src="js/mobileinit.js"'
 	        value='script src="js/mobileinit-min.js"'/>
