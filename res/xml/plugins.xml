@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugins>
+    <plugin name="StatusBarNotification" value="com.phonegap.plugins.statusBarNotification.StatusBarNotification"/>
+</plugins>

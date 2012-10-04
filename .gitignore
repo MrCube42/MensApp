@@ -173,3 +173,12 @@ pip-log.txt
 ############
 
 *_mensafood_*.xml
+
+
+############
+## Android SDK and Eclipse
+############
+
+gen
+proguard-project.txt
+project.properties
