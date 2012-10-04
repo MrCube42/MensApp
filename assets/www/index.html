@@ -12,16 +12,18 @@
     <!-- phonegap cordova -->
     <script src="phonegap/cordova-2.1.0.js"/>
     <script src="phonegap/plugins/statusbarnotification.js" />
-    <!-- call mobile init before jquery -->
-    <script src="js/mobileinit.js"></script>
+    <!-- workaround: access $ so that it is initialized -->
+    <script>$</script>
 	<!-- jquery framework before jquery mobile -->
     <script src="jquery/jquery-1.8.2.js"></script>
-	<!-- jquery (mobile) -->
-    <script src="jquery.mobile/jquery.mobile-1.2.0.js"></script>
+    <!-- call mobile init between jquery and jquery mobile -->
+    <script src="js/mobileinit.js"></script>
     <!-- date helper -->
     <script src="js/date.format.js"></script>
     <!-- this is the main script where the actual mensapp logic happens -->
-    <script defer="defer" src="js/default.js"></script>
+    <script src="js/default.js"></script>
+	<!-- jquery (mobile) -->
+    <script src="jquery.mobile/jquery.mobile-1.2.0.js"></script>
 </head>
 <body>
 <!-- Mainpage -->
@@ -36,31 +38,31 @@
     </div>
     <!-- /header -->
     <div id="content" data-role="content">
-        <div id="day1" data-role="collapsible" data-content-theme="d">
+        <div id="day1" data-role="collapsible" data-content-theme="b">
             <h3>Montag</h3>
 
             <div id="me0" data-day="Mo" class="menuEntry">
             </div>
         </div>
-        <div id="day" data-role="collapsible" data-content-theme="d">
+        <div id="day" data-role="collapsible" data-content-theme="b">
             <h3>Dienstag</h3>
 
             <div id="me1" data-day="Di" class="menuEntry">
             </div>
         </div>
-        <div id="day3" data-role="collapsible" data-content-theme="d">
+        <div id="day3" data-role="collapsible" data-content-theme="b">
             <h3>Mittwoch</h3>
 
             <div id="me2" data-day="Mi" class="menuEntry">
             </div>
         </div>
-        <div id="day4" data-role="collapsible" data-content-theme="d">
+        <div id="day4" data-role="collapsible" data-content-theme="b">
             <h3>Donnerstag</h3>
 
             <div id="me3" data-day="Do" class="menuEntry">
             </div>
         </div>
-        <div id="day5" data-role="collapsible" data-content-theme="d">
+        <div id="day5" data-role="collapsible" data-content-theme="b">
             <h3>Freitag</h3>
 
             <div id="me4" data-day="Fr" class="menuEntry">
@@ -146,7 +148,7 @@
 </div>
 <!-- /page -->
 <!-- Options Page -->
-<div id="options" data-role="page" data-theme="a" data-overlay-theme="e">
+<div id="options" data-role="page" data-theme="a">
     <div data-role="content">
         <h3>Einstellungen</h3>
 

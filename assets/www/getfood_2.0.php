@@ -20,12 +20,10 @@
  *
  ***/
 
- 
-  
- /**
-  * Start of getfood script
-  **/
-  
+/**
+ * Start of getfood script
+ **/
+
 // get the selected mensa or tarforst (1) by default
 $selectedMensa = 1;
 if (!empty($_GET)) {
@@ -57,13 +55,11 @@ if ($data == null) {
 }
 echo $data;
 
+/**
+ * Classes and Helpers
+ *
+ **/
 
-
- /**
-  * Classes and Helpers
-  * 
-  **/
-  
 // helper class used to collect food
 class Food {
 	public $foodHead = "";
@@ -73,8 +69,11 @@ class Food {
 	public $alternativeAdded = FALSE;
 
 	public function getFoodHeader() {
-		if (strlen($this -> foodHead) > 0)
-			return "<div class='theke'>" . $this -> foodHead . "</div>";
+		if (strlen($this -> foodHead) > 0) {
+			if (strlen($this -> foodMenu) > 0) {
+				return "<div class='theke'>" . $this -> foodHead . "</div>";
+			}
+		}
 	}
 
 	public function getFoodMenu() {
@@ -87,7 +86,9 @@ class Food {
 			if ($string != null && strpos($string, "<b>Vegetarisches STAMMESSEN</b>") > -1) {
 				$this -> foodHead .= " - Vegetarisches Stammessen";
 			} else {
-				$this -> foodHead .= " - Stammessen";
+				if(strlen($this->foodHead) > 0) {
+					$this -> foodHead .= " - Stammessen";
+				}
 			}
 		}
 		$this -> stammEssenAdded = TRUE;
@@ -108,13 +109,11 @@ class Food {
 
 }
 
-
-
 /*
  * Functions and Helpers
- * 
+ *
  */
- 
+
 // compute weekdays that must be requested
 function weekNow($weekdays) {
 	// current weekday
@@ -331,7 +330,7 @@ function extractFood($day, $weekdays, $selectedMensa) {
 	$foods = removeAlternativeString($foods);
 	$foods = removeNumberString($foods);
 	$foods = removeWhitespaces($foods);
-	
+
 	// replace the icon markers with actual symbols
 	$foods = putIcons($foods);
 
@@ -455,5 +454,4 @@ function checkCache($weekdays, $selectedMensa) {
 		return null;
 	}
 }
-
 ?>
