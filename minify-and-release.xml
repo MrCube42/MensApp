@@ -49,6 +49,29 @@
 		<copy file="${jquery_mobile_dir}\jquery.mobile.mensapp.css" tofile="${tmp_dir}\jquery.mobile.mensapp.css" />
 		<echo>css Files copied to tmp directory.</echo>
 	</target>
+	
+	<target name="uglify_js" depends="copyToTmp">
+	    <!-- Pack the js-files. -->
+		<exec executable="cmd">
+			<arg line="uglifyjs -v -o ${minified_dir}\date.format-min.js ${tmp_dir}\date.format.js"/>
+		</exec>
+		<exec executable="cmd">
+			<arg line="uglifyjs -v -o ${minified_dir}\default-min.js ${tmp_dir}\default.js"/>
+		</exec>
+		<exec executable="cmd">
+			<arg line="uglifyjs -v -o ${minified_dir}\mobileinit-min.js ${tmp_dir}\mobileinit.js"/>
+		</exec>
+		<exec executable="cmd">
+			<arg line="uglifyjs -v -o ${minified_dir}\jquery.mobile-1.2.0-min.js ${tmp_dir}\jquery.mobile-1.2.0.js"/>
+		</exec>
+		<exec executable="cmd">
+			<arg line="uglifyjs -v -o ${minified_dir}\cordova-2.1.0-min.js ${tmp_dir}\cordova-2.1.0.js"/>
+		</exec>
+		<exec executable="cmd">
+			<arg line="uglifyjs -v -o ${minified_dir}\statusbarnotification-min.js ${tmp_dir}\statusbarnotification.js"/>
+		</exec>
+		<echo>JavaScript files minified.</echo>
+	</target>
 
 	<target name="minify_js" depends="copyToTmp">
 		<!-- Pack the js-files. -->
