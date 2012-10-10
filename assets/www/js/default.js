@@ -499,17 +499,18 @@ $("#mainPage").live("pagebeforecreate", function (event) {
                 // look for all items from the appetizer
                 for (var item in appetizer) {
                     var regex = new RegExp(appetizer[item], "gi");
-                    var replacement = "<span class='appetized'>" + upperCaseFirst(appetizer[item]) + "</span>";
+                    var itemName = upperCaseFirst(appetizer[item]);
+                    var replacement = "<span class='appetized'>" + itemName + "</span>";
                     // brace found item with css class appetized
                     var newFoodData = foodData[selectedMensa].foods[food].replace(regex, replacement);
                     // if something has changed notify
                     if (foodData[selectedMensa].foods[food] != newFoodData) {
                         foodData[selectedMensa].foods[food] = newFoodData;
-                        var dayName = $("#se" + food).attr('data-day');
-                        if (itemsFound[appetizer[item]] == null) {
-                            itemsFound[appetizer[item]] = new Array();
+                        var dayName = $("#me" + food).attr('data-day');
+                        if (itemsFound[itemName] == null) {
+                            itemsFound[itemName] = new Array();
                         }
-                        itemsFound[appetizer[item]].push(dayName);
+                        itemsFound[itemName].push(dayName);
                         someFound = true;
                     }
                 }

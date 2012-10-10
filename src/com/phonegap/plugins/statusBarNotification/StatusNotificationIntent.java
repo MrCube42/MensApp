@@ -2,12 +2,12 @@
 package com.phonegap.plugins.statusBarNotification;
 // import com.yourapp.R;
 
-import de.devinmotion.mensapp.R;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import de.devinmotion.mensapp.R;
 
 public class StatusNotificationIntent {
     public static Notification buildNotification( Context context, CharSequence tag, CharSequence contentTitle, CharSequence contentText ) {
