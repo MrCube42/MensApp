@@ -499,7 +499,7 @@ $("#mainPage").live("pagebeforecreate", function (event) {
                 // look for all items from the appetizer
                 for (var item in appetizer) {
                     var regex = new RegExp(appetizer[item], "gi");
-                    var replacement = "<span class='appetized'>" + appetizer[item] + "</span>";
+                    var replacement = "<span class='appetized'>" + upperCaseFirst(appetizer[item]) + "</span>";
                     // brace found item with css class appetized
                     var newFoodData = foodData[selectedMensa].foods[food].replace(regex, replacement);
                     // if something has changed notify
@@ -527,6 +527,11 @@ $("#mainPage").live("pagebeforecreate", function (event) {
             for (var food in foodData[selectedMensa].foods) {
                 $("#me" + food).append(foodData[selectedMensa].foods[food]);
             }
+        }
+
+        // helper funtion to get the first letter uppercase
+        function upperCaseFirst(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1)
         }
     }
 
