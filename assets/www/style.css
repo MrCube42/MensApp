@@ -256,6 +256,16 @@
     left: 185%;
 }
 
+#popupDeleteFoodData h1, #popupDeleteSettings h1, #popupDeleteAppetizer h1 {
+    font-size: 100%;
+}
+#popupDeleteFoodData h3, #popupDeleteSettings h3, #popupDeleteAppetizer h3 {
+    font-size: 95%;
+}
+#popupDeleteFoodData, #popupDeleteSettings, #popupDeleteAppetizer {
+    font-size: 90%;
+}
+
 /**-------------------------------------------------------------------------------------------------------**/
 /** SubPages **/
 /**-------------------------------------------------------------------------------------------------------**/

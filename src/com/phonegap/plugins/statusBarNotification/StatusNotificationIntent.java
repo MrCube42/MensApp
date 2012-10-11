@@ -10,10 +10,11 @@ import android.content.pm.PackageManager;
 import de.devinmotion.mensapp.R;
 
 public class StatusNotificationIntent {
-    public static Notification buildNotification( Context context, CharSequence tag, CharSequence contentTitle, CharSequence contentText ) {
+    @SuppressWarnings("deprecation")
+	public static Notification buildNotification( Context context, CharSequence tag, CharSequence contentTitle, CharSequence contentText ) {
         int icon = R.drawable.notification;
         long when = System.currentTimeMillis();
-        Notification noti = new Notification(icon, contentTitle, when);
+		Notification noti = new Notification(icon, contentTitle, when);
         noti.flags |= Notification.FLAG_AUTO_CANCEL;
 
         PackageManager pm = context.getPackageManager();
