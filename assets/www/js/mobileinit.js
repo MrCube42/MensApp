@@ -3,8 +3,8 @@ $(document).bind("mobileinit", function() {
 	// Make your jQuery Mobile framework configuration changes here!
 	$.support.cors = true;
 	$.mobile.allowCrossDomainPages = true;
-	$.mobile.defaultPageTransition = "slideup";
-	$.mobile.defaultDialogTransition = "pop";
+	$.mobile.defaultPageTransition = "none";
+	$.mobile.defaultDialogTransition = "none";
     // defaults for loader
     $.mobile.loader.prototype.options.text = "...Lade Daten vom Studiwerk...";
     $.mobile.loader.prototype.options.textVisible = true;

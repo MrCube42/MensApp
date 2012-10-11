@@ -17,7 +17,7 @@ $("#mainPage").live("pagebeforecreate", function (event) {
         document.addEventListener("menubutton", function () {
             // phones back button can open options page
             $.mobile.changePage("#options", {
-                transition:"slideup",
+                transition:"none",
                 role:"page"
             });
         }, false);
@@ -600,12 +600,12 @@ $("#mainPage").live("pagebeforecreate", function (event) {
 
     // close openHours on click/touch
     function closeOpenHours() {
-        // workaround for strange behavior on popout
-        $("#popupOpenHours").hide();
+//        // workaround for strange behavior on popout
+//        ("#popupOpenHours").hide();
         $("#popupOpenHours").popup("close");
-        window.setTimeout(function () {
-            $("#popupOpenHours").show();
-        }, TIME_TILL_POPOUT);
+//        window.setTimeout(function () {
+//            $("#popupOpenHours").show();
+//        }, TIME_TILL_POPOUT);
     }
 
     // shows a message box that fades out
