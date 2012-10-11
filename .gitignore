@@ -182,3 +182,7 @@ pip-log.txt
 gen
 proguard-project.txt
 project.properties
+
+### exclude keystore and APK
+mensapp
+*.apk
