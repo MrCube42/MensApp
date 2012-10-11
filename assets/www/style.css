@@ -139,6 +139,10 @@
     text-align: center;
 }
 
+#footer .ui-btn-inner {
+    font-size: 70%;
+}
+
 #footer .ui-icon-mensapp-appetizer {
     top: 30%;
     background: url(uncolored_icons/125-food.png) 50% 50% no-repeat;
@@ -147,13 +151,19 @@
     height: 30px !important;
 }
 
+#footer #openHoursClock .ui-btn-text {
+    margin-right: -7px;
+}
+
+#footer #openHoursClock .ui-btn-inner {
+    min-width: 0;
+}
+
 /* workaround hide text and center clock */
 #footer .ui-icon-mensapp-clock {
     background-image: url("uncolored_icons/clock.png");
-}
-
-#footer #openHoursClock {
-    height: 36px;
+    left: auto;
+    right: auto;
 }
 
 #openHoursHeader {
@@ -263,9 +273,11 @@
 #popupDeleteFoodData h1, #popupDeleteSettings h1, #popupDeleteAppetizer h1 {
     font-size: 100%;
 }
+
 #popupDeleteFoodData h3, #popupDeleteSettings h3, #popupDeleteAppetizer h3 {
     font-size: 95%;
 }
+
 #popupDeleteFoodData, #popupDeleteSettings, #popupDeleteAppetizer {
     font-size: 90%;
 }
