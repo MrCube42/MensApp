@@ -38,7 +38,6 @@ $("#mainPage").live("pagebeforecreate", function (event) {
             message = message.substr(0, message.lastIndexOf(', '));
             window.plugins.statusBarNotification.notify("MensAppetizer", message);
         }
-
     }
 
 
