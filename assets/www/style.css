@@ -174,29 +174,28 @@
 
 #openHoursContent {
     text-align: center;
-    min-width: 300px;
 }
 
 #openHoursContent .openHoursNormal {
-    margin: 20px;
+    margin: 20px 0 20px 0;
     font-size: 90%;
 }
 
 #openHoursContent .semesterferien {
-    margin: 20px;
+    margin: 20px 0 20px 0;
     font-style: italic;
     font-size: 75%;
 }
 
 #openHoursContent .ka {
     color: red;
-    margin: 10px;
+    margin: 10px 0 10px 0;
     font-style: italic;
     font-size: 75%;
 }
 
 #openHoursContent .openHoursNormal > div, .semesterferien > div {
-    margin: 5px;
+    margin: 5px 0 5px 0;
 }
 
 /* adjust width of blocks and draw bottom border */
