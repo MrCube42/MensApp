@@ -107,7 +107,7 @@ $("#mainPage").live("pagebeforecreate", function (event) {
     // on page init (use pagebeforeshow in jquery-mobile rather than document.ready)
     // use pageshow event here because page must be loaded to show the loader
     $("#mainPage").live("pageshow", function (event) {
-        loadFoodData();
+        loadFoodData(true);
         expandWeekDayToday();
     });
     // load content into appetizer, when appetizer page is opened
@@ -117,7 +117,7 @@ $("#mainPage").live("pagebeforecreate", function (event) {
 
     // before changing the page collapse all menues to prevent flickering on android devices
     $("#mainPage").live("pagebeforehide", function (event) {
-       collapseAll();
+        collapseAll();
     });
 
     /**    Functions and Event Handlers
@@ -244,7 +244,7 @@ $("#mainPage").live("pagebeforecreate", function (event) {
     }
 
     // loads the fooddata
-    function loadFoodData() {
+    function loadFoodData(fromPageShow) {
         // check whether current data is cached
         restoreData();
         if (!foodData[selectedMensa]) {
@@ -274,11 +274,16 @@ $("#mainPage").live("pagebeforecreate", function (event) {
                 error:function (jqXHR, textStatus, errorThrown) {
                     hideLoading(true);
                     showMessage("Aktueller Mensaplan kann nicht geladen werden.", "Fehler", "content");
+                    return;
                 }
             });
         } else {
             processFoodData();
             processOpenHours();
+        }
+
+        if (!fromPageShow) {
+            lookForAppetizer();
         }
 
         // shows fooddata in frontend and looks for appetizer
@@ -289,7 +294,6 @@ $("#mainPage").live("pagebeforecreate", function (event) {
                 $("#me" + food).empty()
                 $("#me" + food).append(foodData[selectedMensa].foods[food]);
             }
-            lookForAppetizer();
         }
 
         // adds open hours to the open hours content
@@ -430,8 +434,10 @@ $("#mainPage").live("pagebeforecreate", function (event) {
     function deleteAppetizerCache() {
         localStorage.removeItem("mensapp:appetizer");
         appetizer = null;
-        $("#watchlist ul").contents().remove();
-        $("#watchlist ul").listview("refresh");
+        if($("#watchlist ul")) {
+            $("#watchlist ul").contents().remove();
+        }
+        removeAppetizedFood();
     }
 
     // save appetizer to localstorage
@@ -453,6 +459,9 @@ $("#mainPage").live("pagebeforecreate", function (event) {
 
         // helper function that checks whether two appetizers are equal
         function appetizersAreEqual(oldAppetizer, newAppetizer) {
+            // if no old appetizer
+            if(oldAppetizer==null && newAppetizer!=null)
+                return false;
             var biggerAppetizer = oldAppetizer;
             // use biggest index
             if (oldAppetizer != null && newAppetizer.length > oldAppetizer.length) {
@@ -527,7 +536,6 @@ $("#mainPage").live("pagebeforecreate", function (event) {
             }
             saveFoodData();
             updateFoodDisplay();
-            console.log(itemsFound);
             if (someFound) {
                 showAppetizerNotification(itemsFound);
             }
@@ -552,9 +560,14 @@ $("#mainPage").live("pagebeforecreate", function (event) {
         if (foodData[selectedMensa] && foodData[selectedMensa].foods) {
             // remove appetized food
             $(".appetized").replaceWith(function () {
-                return $(this).contents();
+                return $(this).contents()
             });
+            // reset food data
+            for(var food in foodData[selectedMensa].foods) {
+                foodData[selectedMensa].foods[food] = $('#me' + food).html();
+            }
         }
+        saveFoodData();
     }
 
     // add item to watch to the appetizer
