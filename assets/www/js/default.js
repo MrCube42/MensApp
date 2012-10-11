@@ -98,6 +98,7 @@ $("#mainPage").live("pagebeforecreate", function (event) {
     // load initial data and settings
     loadDateStrings();
     loadSettings();
+    lookForAppetizer();
 
     // TODO: COMMENT-IN AND USE FOR PRODUCTION!!!
     // Now safe to use the PhoneGap API
@@ -370,6 +371,7 @@ $("#mainPage").live("pagebeforecreate", function (event) {
             useAppetizer = false;
             // is not appetized -> just remove appetized food
             removeAppetizedFood();
+            saveFoodData();
         }
     }
 
@@ -438,6 +440,7 @@ $("#mainPage").live("pagebeforecreate", function (event) {
             $("#watchlist ul").contents().remove();
         }
         removeAppetizedFood();
+        saveFoodData();
     }
 
     // save appetizer to localstorage
@@ -567,7 +570,6 @@ $("#mainPage").live("pagebeforecreate", function (event) {
                 foodData[selectedMensa].foods[food] = $('#me' + food).html();
             }
         }
-        saveFoodData();
     }
 
     // add item to watch to the appetizer
