@@ -38,6 +38,7 @@ $("#mainPage").live("pagebeforecreate", function (event) {
             message = message.substr(0, message.lastIndexOf(', '));
             window.plugins.statusBarNotification.notify("MensAppetizer", message);
         }
+
     }
 
 
@@ -98,22 +99,26 @@ $("#mainPage").live("pagebeforecreate", function (event) {
     loadDateStrings();
     loadSettings();
 
-    expandWeekDayToday();
-
     // TODO: COMMENT-IN AND USE FOR PRODUCTION!!!
     // Now safe to use the PhoneGap API
     document.addEventListener("deviceready", onDeviceReady, false);
 
     // jquery mobile initialization
-    // on page init (use this in jquery-mobile rather than document.ready)
+    // on page init (use pagebeforeshow in jquery-mobile rather than document.ready)
+    // use pageshow event here because page must be loaded to show the loader
     $("#mainPage").live("pageshow", function (event) {
         loadFoodData();
+        expandWeekDayToday();
     });
     // load content into appetizer, when appetizer page is opened
     $("#watchlist").live("pageinit", function (event) {
         loadAppetizerContents();
     });
 
+    // before changing the page collapse all menues to prevent flickering on android devices
+    $("#mainPage").live("pagebeforehide", function (event) {
+       collapseAll();
+    });
 
     /**    Functions and Event Handlers
      */
@@ -136,7 +141,11 @@ $("#mainPage").live("pagebeforecreate", function (event) {
     function selectMensa() {
         selectedMensa = $("#mensaSelect option:selected")[0].value;
         saveSettings();
+        // before changing the mensa collapse all menus (prevent wrong placement of loading message)
+        collapseAll();
         updateFoodData();
+        // after mensa food is updated expand actual week day (prevent wrong placement of loading message)
+        expandWeekDayToday();
     }
 
     // loads the date of today, sets the date string presented under the mensapp title bar
@@ -191,6 +200,7 @@ $("#mainPage").live("pagebeforecreate", function (event) {
         // expand
         var today = $("#content #day" + weekday);
         today.attr("data-collapsed", "false");
+        today.trigger("expand");
         // style today
         if (isToday) {
             today.addClass('today');
@@ -517,6 +527,7 @@ $("#mainPage").live("pagebeforecreate", function (event) {
             }
             saveFoodData();
             updateFoodDisplay();
+            console.log(itemsFound);
             if (someFound) {
                 showAppetizerNotification(itemsFound);
             }

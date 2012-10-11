@@ -978,31 +978,33 @@ $.widget( "mobile.widget", {
 		fakeFixLoader: function() {
 			var activeBtn = $( "." + $.mobile.activeBtnClass ).first();
 
-            // TODO FIX: return if undefined
-            if(this.element == undefined)
-                return;
+//            // TODO FIX: return if undefined
+//            if(this.element == undefined)
+//                return;
 
-			this.element
-				.css({
-					top: $.support.scrollTop && $window.scrollTop() + $window.height() / 2 ||
-						activeBtn.length && activeBtn.offset().top || 100
-				});
+              // TODO FIX: do not set loader by means of scrollTop or something -> this is handled by my own css
+//			this.element
+//				.css({
+//					top: $.support.scrollTop && $window.scrollTop() + $window.height() / 2 ||
+//						activeBtn.length && activeBtn.offset().top || 100
+//				});
 		},
 
 		// check position of loader to see if it appears to be "fixed" to center
 		// if not, use abs positioning
 		checkLoaderPosition: function() {
-			var offset = this.element.offset(),
-				scrollTop = $window.scrollTop(),
-				screenHeight = $.mobile.getScreenHeight();
-
-			if ( offset.top < scrollTop || ( offset.top - scrollTop ) > screenHeight ) {
-				this.element.addClass( "ui-loader-fakefix" );
-				this.fakeFixLoader();
-				$window
-					.unbind( "scroll", this.checkLoaderPosition )
-					.bind( "scroll", this.fakeFixLoader );
-			}
+            // TODO FIX: do not check loader position -> this is handled by my own css
+//			var offset = this.element.offset(),
+//				scrollTop = $window.scrollTop(),
+//				screenHeight = $.mobile.getScreenHeight();
+//
+//			if ( offset.top < scrollTop || ( offset.top - scrollTop ) > screenHeight ) {
+//				this.element.addClass( "ui-loader-fakefix" );
+//				this.fakeFixLoader();
+//				$window
+//					.unbind( "scroll", this.checkLoaderPosition )
+//					.bind( "scroll", this.fakeFixLoader );
+//			}
 		},
 
 		resetHtml: function() {

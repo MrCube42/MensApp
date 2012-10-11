@@ -48,6 +48,10 @@
     text-shadow: 0 /*{a-bup-shadow-x}*/ 1px /*{a-bup-shadow-y}*/ 1px /*{a-bup-shadow-radius}*/ #111 /*{a-bup-shadow-color}*/;
 }
 
+#content .ui-collapsible {
+    margin-bottom: 2px;
+}
+
 #content .ui-collapsible-content {
     padding: 10px 10px;
 }
