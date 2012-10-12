@@ -317,7 +317,7 @@ $("#mainPage").live("pagebeforecreate", function (event) {
                 foodData[selectedMensa] = JSON.parse(mensaData);
             }
             // data is available but time is not set correct
-            if (weekString != foodData[selectedMensa]["date"]) {
+            if (foodData[selectedMensa] && (weekString != foodData[selectedMensa]["date"])) {
                 localStorage.removeItem("mensapp:data:" + selectedMensa);
                 // reset
                 foodData[selectedMensa] = null;
