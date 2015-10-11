@@ -1,0 +1,115 @@
+﻿import codecs
+import xml.etree.ElementTree as ET
+from mensapp.services.parser import Parser
+from mensapp.model.mensa import Mensa
+from mensapp.model.menu import Menu
+from mensapp.model.food import Food
+from mensapp.model.price import Price
+from mensapp.model.foodItem import FoodItem
+
+from mensapp.globals.constants import Constants
+from mensapp.globals.helpers import Helpers
+
+from datetime import date
+from datetime import datetime
+from datetime import timedelta
+
+class ParserSWT(object):
+    """description of class"""
+
+    def __init__(self, mensaId, beginDateString, endDateString):
+        self.Mensas = {}
+        self.MensaId = mensaId
+        self.MensaIdInternal = "standort-{0}".format(mensaId)
+        self.Result = ""
+        self.Root = None
+        self.Prepare()
+        
+        self.BeginDate = datetime.strptime(beginDateString, Constants.SWTDateFormat)
+        self.EndDate = datetime.strptime(endDateString, Constants.SWTDateFormat)
+        
+        for date in Helpers.GetDatesBetweenIncluding(self.BeginDate, self.EndDate):
+            self.Parse(date.strftime(Constants.SWTDateFormat))
+
+    def Prepare(self):
+        fileObj = codecs.open("C:\Users\MrCube\Documents\MensApp\server\speiseplan.xml", "r")
+        # decode + encode properly
+        decoded = fileObj.read().decode("ISO-8859-15")
+        encoded = decoded.encode("ascii", "replace")
+        self.Root = ET.fromstring(encoded)
+
+    def Parse(self, date):
+        parser = Parser()
+        dateNode = parser.FindAttributedNode(self.Root, "artikel", "date", date)
+        mensaNode = parser.FindAttributedNode(dateNode, "standort", "id", self.MensaIdInternal)
+        mensaName = parser.FindNodeValue(mensaNode, "label")
+        isOpen = parser.FindNodeValue(mensaNode, "geschlossen") == "0"
+        
+        mensa = Mensa(self.MensaId, mensaName, isOpen)
+
+        menuNodes = parser.FindNodes(mensaNode, "theke")
+        for menuNode in menuNodes:
+            menuName = parser.FindNodeValue(menuNode, "label")
+            isOpen = parser.FindNodeValue(menuNode, "geschlossen") == "0"
+
+            menu = Menu(menuName, isOpen)
+
+            foodNodes = parser.FindNodes(menuNode, "mahlzeit")
+            for foodNode in foodNodes:
+                foodName = parser.FindNodeValue(foodNode, "titel")
+                foodDescription = parser.FindNodeValue(foodNode, "beschreibung")
+
+                studentPriceNode = parser.FindAttributedNode(foodNode, "price", "id", "price-1")
+                employeePriceNode = parser.FindAttributedNode(foodNode, "price", "id", "price-2")
+                guestPriceNode = parser.FindAttributedNode(foodNode, "price", "id", "price-3")
+                studentPrice = parser.FindNodeAttribute(studentPriceNode, "data")
+                employeePrice = parser.FindNodeAttribute(studentPriceNode, "data")
+                guestPrice = parser.FindNodeAttribute(studentPriceNode, "data")
+
+                foodPrice = Price(studentPrice, employeePrice, guestPrice)
+
+                food = Food(foodName, foodDescription, foodPrice)
+
+                starterRoot = parser.FindNode(foodNode, "vorspeise")
+                starterNodes = parser.FindNodes(starterRoot, "data")
+                for starterNode in starterNodes:
+                    starterName = parser.FindNodeValue(starterNode, "label")
+                    starter = FoodItem(starterName)
+                    food.AddStarter(starter)
+
+                mainRoot = parser.FindNode(foodNode, "hauptkomponente")
+                mainNodes = parser.FindNodes(mainRoot, "data")
+                for mainNode in mainNodes:
+                    mainName = parser.FindNodeValue(mainNode, "label")
+                    main = FoodItem(mainName)
+                    food.AddMain(main)
+
+                sideRoot = parser.FindNode(foodNode, "beilage1")
+                sideNodes = parser.FindNodes(sideRoot, "data")
+                for sideNode in sideNodes:
+                    sideName = parser.FindNodeValue(sideNode, "label")
+                    side = FoodItem(sideName)
+                    food.AddFirstSide(side)
+
+                sideRoot2 = parser.FindNode(foodNode, "beilage2")
+                sideNodes2 = parser.FindNodes(sideRoot2, "data")
+                for sideNode2 in sideNodes2:
+                    sideName2 = parser.FindNodeValue(sideNode2, "label")
+                    side2 = FoodItem(sideName2)
+                    food.AddSecondSide(side2)
+
+                dessertRoot = parser.FindNode(foodNode, "nachspeise")
+                dessertNodes = parser.FindNodes(dessertRoot, "data")
+                for dessertNode in dessertNodes:
+                    dessertName = parser.FindNodeValue(dessertNode, "label")
+                    dessert = FoodItem(dessertName)
+                    food.AddDessert(dessert)
+
+                menu.AddFood(food)
+
+            mensa.AddMenu(menu)
+
+        self.Mensas[date] = mensa
+
+    def GetMensa(self, date):
+        return self.Mensas[date]
