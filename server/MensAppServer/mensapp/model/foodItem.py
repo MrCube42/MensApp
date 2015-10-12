@@ -1,4 +1,7 @@
-﻿class FoodItem(object):
+﻿#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+class FoodItem(object):
     """description of class"""
 
     def __init__(self, name):

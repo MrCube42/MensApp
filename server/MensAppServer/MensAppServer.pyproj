@@ -17,6 +17,9 @@
     <Name>MensAppServer</Name>
     <RootNamespace>MensAppServer</RootNamespace>
     <WebBrowserPort>8080</WebBrowserPort>
+    <Environment>
+    </Environment>
+    <WebBrowserUrl>http://localhost?mensa=1</WebBrowserUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>

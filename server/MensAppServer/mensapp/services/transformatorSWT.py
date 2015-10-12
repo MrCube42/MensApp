@@ -1,4 +1,7 @@
-﻿from mensapp.model.mensa import Mensa
+﻿#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from mensapp.model.mensa import Mensa
 from mensapp.model.menu import Menu
 from mensapp.model.food import Food
 from mensapp.model.foodItem import FoodItem
@@ -13,81 +16,87 @@ class TransformatorSWT(object):
     __AndConnectString = ", "
 
     def __init__(self, startDateString, endDateString, mensaId, mensas, openHours = None):
-        self.DateString = "{0}-{1}".format(startDateString, endDateString)
-        self.MensaId = mensaId
-        self.OpenHours = openHours
-        self.Mensas = mensas
+        self.__DateString = u"{0}-{1}".format(startDateString, endDateString)
+        self.__MensaId = mensaId
+        self.__OpenHours = openHours
+        self.__Mensas = mensas
 
     def GetJsonString(self):
         jsonObject = {}
-        jsonObject["date"] = self.DateString
-        jsonObject["mensaId"] = self.MensaId
-        jsonObject["foods"] = self.GetJsonFoods()
-        jsonObject["openHours"] = self.OpenHours
-        return json.dumps(jsonObject)
+        jsonObject["date"] = self.__DateString
+        jsonObject["mensaId"] = self.__MensaId
+        jsonObject["foods"] = self.__GetJsonFoods()
+        jsonObject["openHours"] = self.__GetOpenHours()
+        # do make sure that unicode is used instead of ascii
+        return json.dumps(jsonObject, ensure_ascii = False)
 
-    def GetJsonFoods(self):
+    def __GetJsonFoods(self):
         foods = []
-        for mensa in self.Mensas:
+        for mensa in self.__Mensas:
             menus = []
-            for menu in mensa.Menus:
-                menus.append(self.ConvertMenu(menu))
+            for menu in mensa.GetMenus():
+                if(menu.HasFood()):
+                    menus.append(self.__ConvertMenu(menu))
             foods.append("".join(menus))
         return foods
 
-    def ConvertMenu(self, menu):
-        self.Output = ""
+    def __ConvertMenu(self, menu):
+        self.__Output = ""
 
-        self.AppendToOutput("<div class='theke'>{0}</div>".format(menu.GetName()))
+        self.__AppendToOutput(u"<div class='theke'>{0}</div>".format(menu.GetName()))
 
         if menu.IsOpen():
-            self.HandleOpenedMenu(menu)
+            self.__HandleOpenedMenu(menu)
         else:
-            self.HandleClosedMenu()
+            self.__HandleClosedMenu()
         
-        return self.Output
+        return self.__Output
 
-    def HandleOpenedMenu(self, menu):
-        self.AppendToOutput("<div class='menu'>")
+    def __HandleOpenedMenu(self, menu):
+        self.__AppendToOutput("<div class='menu'>")
         for food in menu.GetFoods():
-            self.AppendToOutput("<div class='price'>{0}</div>".format(food.GetStudentPrice()))
-            self.AppendToOutput("<div class='reference'/>")
-            self.HandleMeals(food.GetStarters())
-            self.HandleMeals(food.GetMains())
-            self.HandleSides(food.GetFirstSides(), food.GetSecondSides())
-            self.HandleMeals(food.GetDesserts())
-        self.AppendToOutput("</div>")
+            self.__AppendToOutput(u"<div class='price'>{0}</div>".format(food.GetStudentPrice()))
+            self.__AppendToOutput("<div class='reference'/>")
+            self.__HandleMeals(food.GetStarters())
+            self.__HandleMeals(food.GetMains())
+            self.__HandleSides(food.GetFirstSides(), food.GetSecondSides())
+            self.__HandleMeals(food.GetDesserts())
+        self.__AppendToOutput("</div>")
 
-    def HandleClosedMenu(self):
-        self.AppendToOutput("<div class='menu'><div class='price noprice'>-1</div><div class='reference noprice'/><div class='meal'><b>geschlossen</b></div></div>")
+    def __HandleClosedMenu(self):
+        self.__AppendToOutput("<div class='menu'><div class='price noprice'>-1</div><div class='reference noprice'/><div class='meal'><b>geschlossen</b></div></div>")
 
-    def HandleMeals(self, meals):
-        self.AppendToOutput("<div class='meal'>")
+    def __HandleMeals(self, meals):
+        self.__AppendToOutput("<div class='meal'>")
         for meal in meals:
-            self.AppendToOutput("{0}{1}".format(meal.GetName(), self.__OrConnectString))
+            self.__AppendToOutput(u"{0}{1}".format(meal.GetName(), self.__OrConnectString))
         if len(meals) > 0:
-            self.RemoveFromOutputEnd(self.__OrConnectString)
-        self.AppendToOutput("</div>")
+            self.__RemoveFromOutputEnd(self.__OrConnectString)
+        self.__AppendToOutput("</div>")
 
-    def HandleSides(self, firstSides, secondSides):
-        self.AppendToOutput("<div class='meal'>")
+    def __HandleSides(self, firstSides, secondSides):
+        self.__AppendToOutput("<div class='meal'>")
 
         for side in firstSides:
-            self.AppendToOutput("{0}{1}".format(side.GetName(), self.__OrConnectString))
+            self.__AppendToOutput(u"{0}{1}".format(side.GetName(), self.__OrConnectString))
         if len(firstSides) > 0:
-            self.RemoveFromOutputEnd(self.__OrConnectString)
+            self.__RemoveFromOutputEnd(self.__OrConnectString)
 
-        self.AppendToOutput(self.__AndConnectString)
+        if len(firstSides) > 0 and len(secondSides) > 0:
+            self.__AppendToOutput(self.__AndConnectString)
 
         for side in secondSides:
-            self.AppendToOutput("{0}{1}".format(side.GetName(), self.__OrConnectString))
+            self.__AppendToOutput(u"{0}{1}".format(side.GetName(), self.__OrConnectString))
         if len(secondSides) > 0:
-            self.RemoveFromOutputEnd(self.__OrConnectString)
+            self.__RemoveFromOutputEnd(self.__OrConnectString)
 
-        self.AppendToOutput("</div>")
+        self.__AppendToOutput("</div>")
 
-    def AppendToOutput(self, content):
-        self.Output = self.Output + content
+    def __AppendToOutput(self, content):
+        self.__Output = self.__Output + content
 
-    def RemoveFromOutputEnd(self, contentToRemove):
-        self.Output = self.Output[:-len(contentToRemove)]
+    def __RemoveFromOutputEnd(self, contentToRemove):
+        self.__Output = self.__Output[:-len(contentToRemove)]
+
+    def __GetOpenHours(self):
+        return "<div class='openHoursNormal'><div>Momentan leider nicht verfügbar.</div>"

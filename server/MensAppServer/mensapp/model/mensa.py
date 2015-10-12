@@ -1,17 +1,24 @@
-﻿class Mensa(object):
+﻿#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+class Mensa(object):
     """description of class"""
 
     def __init__(self, id, name, isOpen = True):
-        self.Id = id
-        self.Name = name
-        self.IsOpen = isOpen
-        self.Menus = []
+        self.__Id = id
+        self.__Name = name
+        self.__IsOpen = isOpen
+        self.__Menus = []
 
-    def __str__(self):
-        stringRepresentation = self.Name
-        if not self.IsOpen:
-            stringRepresentation = stringRepresentation + " (geschlossen)"
-        return stringRepresentation
+        # TODO: Do we need this?
+    #def __str__(self):
+    #    stringRepresentation = self.Name
+    #    if not self.IsOpen:
+    #        stringRepresentation = stringRepresentation + " (geschlossen)"
+    #    return stringRepresentation
 
     def AddMenu(self, menu):
-        self.Menus.append(menu)
+        self.__Menus.append(menu)
+
+    def GetMenus(self):
+        return self.__Menus

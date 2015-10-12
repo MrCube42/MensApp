@@ -1,4 +1,7 @@
-﻿class Food(object):
+﻿#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+class Food(object):
     """description of class"""
     
     def __init__(self, name, description, price):
@@ -11,18 +14,17 @@
         self.__SecondSides = []
         self.__Desserts = []
 
-    def __str__(self):
-        stringRepresentation = "{0} - {1} ({2})".format(self.__Name, self.__Description, self.__Price)
+        # TODO: Do we need this?
+    #def __str__(self):
+    #    stringRepresentation = "{0} - {1} ({2})".format(self.__Name, self.__Description, self.__Price)
 
-        for starter in self.__Starters:
-            stringRepresentation = "{0}\n{1}".format(stringRepresentation, starter)
+    #    for starter in self.__Starters:
+    #        stringRepresentation = "{0}\n{1}".format(stringRepresentation, starter)
 
-        for main in self.__Mains:
-            stringRepresentation = "{0}\n{1}".format(stringRepresentation, main)
-
+    #    for main in self.__Mains:
+    #        stringRepresentation = "{0}\n{1}".format(stringRepresentation, main)
         ### more
-
-        return stringRepresentation
+        #return stringRepresentation
 
     def AddStarter(self, starter):
         self.__Starters.append(starter)

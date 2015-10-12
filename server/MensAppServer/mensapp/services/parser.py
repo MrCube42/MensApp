@@ -1,13 +1,16 @@
-﻿class Parser(object):
+﻿#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+class Parser(object):
     """description of class"""
 
     def FindNode(self, sourceNode, nodeName):
-        xpath = ".//{0}".format(nodeName)
+        xpath = u".//{0}".format(nodeName)
         targetNode = sourceNode.find(xpath)
         return targetNode
 
     def FindAttributedNode(self, sourceNode, nodeName, attribute, attributeCompareValue):
-        xpath = ".//{0}[@{1}='{2}']".format(nodeName, attribute, attributeCompareValue)
+        xpath = u".//{0}[@{1}='{2}']".format(nodeName, attribute, attributeCompareValue)
         targetNode = sourceNode.find(xpath)
         return targetNode
 
@@ -16,7 +19,7 @@
         return targetNode.text
 
     def FindNodes(self, sourceNode, nodeName):
-        xpath = ".//{0}".format(nodeName)
+        xpath = u".//{0}".format(nodeName)
         nodes = sourceNode.findall(xpath)
         return nodes
 

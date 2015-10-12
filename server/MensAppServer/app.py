@@ -1,7 +1,15 @@
-﻿"""
+﻿#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
 This script runs the application using a development server.
 It contains the definition of routes and views for the application.
 """
+
+# Overwrite default encoding!
+import sys
+reload(sys)  # Reload does the trick!
+sys.setdefaultencoding("utf-8")
 
 from mensapp.services.parserSWT import ParserSWT
 from mensapp.services.transformatorSWT import TransformatorSWT
@@ -40,12 +48,16 @@ def getFood():
 
     transformator = TransformatorSWT(startDateString, endDateString, mensaId, mensas)
 
-    response = Response(transformator.GetJsonString())
+    json = transformator.GetJsonString()
+    response = Response(json)
     response.headers['Access-Control-Allow-Origin'] = '*'
 
-    return response
+    # TODO: Handle parsed data (write to file, in DB or elsewhere)
+    #filename = u"{0}_mensafood_{1}-{2}_2.0.xml".format(mensaId, startDateString, endDateString)
+    #with open(filename, 'w') as outfile:
+    #    outfile.write(json)
 
-    #return parser.GetResult()
+    return response
 
 if __name__ == '__main__':
     import os

@@ -1,4 +1,7 @@
-﻿import codecs
+﻿#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import codecs
 import xml.etree.ElementTree as ET
 from mensapp.services.parser import Parser
 from mensapp.model.mensa import Mensa
@@ -14,38 +17,46 @@ from datetime import date
 from datetime import datetime
 from datetime import timedelta
 
+import urllib
+
 class ParserSWT(object):
     """description of class"""
 
     def __init__(self, mensaId, beginDateString, endDateString):
-        self.Mensas = {}
-        self.MensaId = mensaId
-        self.MensaIdInternal = "standort-{0}".format(mensaId)
-        self.Result = ""
-        self.Root = None
-        self.Prepare()
+        self.__Mensas = {}
+        self.__MensaId = mensaId
+        self.__MensaIdInternal = u"standort-{0}".format(mensaId)
+        self.__Result = ""
+        self.__Root = None
+        self.__Prepare()
         
-        self.BeginDate = datetime.strptime(beginDateString, Constants.SWTDateFormat)
-        self.EndDate = datetime.strptime(endDateString, Constants.SWTDateFormat)
+        self.__BeginDate = datetime.strptime(beginDateString, Constants.SWTDateFormat)
+        self.__EndDate = datetime.strptime(endDateString, Constants.SWTDateFormat)
         
-        for date in Helpers.GetDatesBetweenIncluding(self.BeginDate, self.EndDate):
-            self.Parse(date.strftime(Constants.SWTDateFormat))
+        for date in Helpers.GetDatesBetweenIncluding(self.__BeginDate, self.__EndDate):
+            self.__Parse(date.strftime(Constants.SWTDateFormat))
 
-    def Prepare(self):
-        fileObj = codecs.open("C:\Users\MrCube\Documents\MensApp\server\speiseplan.xml", "r")
-        # decode + encode properly
-        decoded = fileObj.read().decode("ISO-8859-15")
-        encoded = decoded.encode("ascii", "replace")
-        self.Root = ET.fromstring(encoded)
+    def __Prepare(self):
+        
+        # load from file (develop)
+        # fileObj = codecs.open("C:\Users\MrCube\Documents\MensApp\server\speiseplan.xml", "r")
+        
+        # load from URL
+        fileObj = urllib.urlopen("http://www.studiwerk.de/export/speiseplan.xml")
+        raw = fileObj.read()
+        
+        #decoded = raw.decode("iso-8859-15")
+        # read from raw string
+        self.__Root = ET.fromstring(raw)
 
-    def Parse(self, date):
+    def __Parse(self, date):
         parser = Parser()
-        dateNode = parser.FindAttributedNode(self.Root, "artikel", "date", date)
-        mensaNode = parser.FindAttributedNode(dateNode, "standort", "id", self.MensaIdInternal)
+        dateNode = parser.FindAttributedNode(self.__Root, "artikel", "date", date)
+        mensaNode = parser.FindAttributedNode(dateNode, "standort", "id", self.__MensaIdInternal)
         mensaName = parser.FindNodeValue(mensaNode, "label")
         isOpen = parser.FindNodeValue(mensaNode, "geschlossen") == "0"
         
-        mensa = Mensa(self.MensaId, mensaName, isOpen)
+        mensa = Mensa(self.__MensaId, mensaName, isOpen)
 
         menuNodes = parser.FindNodes(mensaNode, "theke")
         for menuNode in menuNodes:
@@ -62,9 +73,16 @@ class ParserSWT(object):
                 studentPriceNode = parser.FindAttributedNode(foodNode, "price", "id", "price-1")
                 employeePriceNode = parser.FindAttributedNode(foodNode, "price", "id", "price-2")
                 guestPriceNode = parser.FindAttributedNode(foodNode, "price", "id", "price-3")
-                studentPrice = parser.FindNodeAttribute(studentPriceNode, "data")
-                employeePrice = parser.FindNodeAttribute(studentPriceNode, "data")
-                guestPrice = parser.FindNodeAttribute(studentPriceNode, "data")
+                
+                studentPrice = ""
+                employeePrice = ""
+                guestPrice = ""
+                if studentPriceNode is not None:
+                    studentPrice = parser.FindNodeAttribute(studentPriceNode, "data")
+                if employeePriceNode is not None:
+                    employeePrice = parser.FindNodeAttribute(studentPriceNode, "data")
+                if guestPriceNode is not None:
+                    guestPrice = parser.FindNodeAttribute(studentPriceNode, "data")
 
                 foodPrice = Price(studentPrice, employeePrice, guestPrice)
 
@@ -109,7 +127,7 @@ class ParserSWT(object):
 
             mensa.AddMenu(menu)
 
-        self.Mensas[date] = mensa
+        self.__Mensas[date] = mensa
 
     def GetMensa(self, date):
-        return self.Mensas[date]
+        return self.__Mensas[date]
