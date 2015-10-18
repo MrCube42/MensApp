@@ -14,17 +14,14 @@ class Food(object):
         self.__SecondSides = []
         self.__Desserts = []
 
-        # TODO: Do we need this?
-    #def __str__(self):
-    #    stringRepresentation = "{0} - {1} ({2})".format(self.__Name, self.__Description, self.__Price)
+    def GetName(self):
+        return self.__Name
 
-    #    for starter in self.__Starters:
-    #        stringRepresentation = "{0}\n{1}".format(stringRepresentation, starter)
+    def GetDescription(self):
+        return self.__Description
 
-    #    for main in self.__Mains:
-    #        stringRepresentation = "{0}\n{1}".format(stringRepresentation, main)
-        ### more
-        #return stringRepresentation
+    def GetPrice(self):
+        return self.__Price
 
     def AddStarter(self, starter):
         self.__Starters.append(starter)

@@ -10,12 +10,14 @@ class Mensa(object):
         self.__IsOpen = isOpen
         self.__Menus = []
 
-        # TODO: Do we need this?
-    #def __str__(self):
-    #    stringRepresentation = self.Name
-    #    if not self.IsOpen:
-    #        stringRepresentation = stringRepresentation + " (geschlossen)"
-    #    return stringRepresentation
+    def GetId(self):
+        return self.__Id
+
+    def GetName(self):
+        return self.__Name
+
+    def IsOpen(self):
+        return self.__IsOpen
 
     def AddMenu(self, menu):
         self.__Menus.append(menu)

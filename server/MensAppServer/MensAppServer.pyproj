@@ -46,6 +46,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="mensapp\model\__init__.py" />
+    <Compile Include="mensapp\services\jsonConverter.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="mensapp\services\parser.py" />
     <Compile Include="mensapp\services\parserSWT.py" />
     <Compile Include="mensapp\services\transformatorSWT.py">

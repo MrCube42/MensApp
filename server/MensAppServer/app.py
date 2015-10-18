@@ -17,6 +17,10 @@ from mensapp.services.transformatorSWT import TransformatorSWT
 from mensapp.globals.helpers import Helpers
 from mensapp.globals.constants import Constants
 
+import json
+
+from mensapp.services.jsonConverter import JsonConverter
+
 from datetime import date
 from datetime import datetime
 
@@ -33,23 +37,41 @@ def getFood():
     """Renders a sample page."""
 
     mensaId = request.args.get('mensa')
-    startDateString = "20151012"
-    endDateString = "20151016"
+    startDateString = "20151019"
+    endDateString = "20151023"
 
     startDate = datetime.strptime(startDateString, Constants.SWTDateFormat)
     endDate = datetime.strptime(endDateString, Constants.SWTDateFormat)
 
     parser = ParserSWT(mensaId, startDateString, endDateString)
-    
+
+    jsonObject = {}
     mensas = []
     for date in Helpers.GetDatesBetweenIncluding(startDate, endDate):
         mensa = parser.GetMensa(date.strftime(Constants.SWTDateFormat))
         mensas.append(mensa)
+    
+        ## generate json
+        #menusJson = []
+        #for menu in mensa.GetMenus():
+        #    menusJson.append(JsonConverter.ConvertMenuToJson(menu))
+        #jsonObject[mensaId + date.strftime(Constants.SWTDateFormat)] = menusJson
+
+        ## revert json
+        #for menjuJson in menusJson:
+        #    menu = JsonConverter.ConvertJsonToMenu(menjuJson)
+        #    print menu.GetName()
+        #    for food in menu.GetFoods():
+        #        print food.GetName()
+        #        print food.GetPrice().GetStudentPrice()
+        #        for main in food.GetMains():
+        #            print main.GetName()
 
     transformator = TransformatorSWT(startDateString, endDateString, mensaId, mensas)
 
-    json = transformator.GetJsonString()
-    response = Response(json)
+    jsonString = transformator.GetJsonString()
+    #jsonString = json.dumps(jsonObject, ensure_ascii = False, indent = 2, sort_keys = True)
+    response = Response(jsonString)
     response.headers['Access-Control-Allow-Origin'] = '*'
 
     # TODO: Handle parsed data (write to file, in DB or elsewhere)
