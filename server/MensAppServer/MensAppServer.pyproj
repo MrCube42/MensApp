@@ -7,7 +7,7 @@
     <ProjectGuid>d193e286-293f-4079-9371-108256231b98</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <ProjectTypeGuids>{789894c7-04a9-4a11-a6b5-3f4435165112};{1b580a1a-fdb3-4b32-83e1-6407eb2722e6};{349c5851-65df-11da-9384-00065b846f21};{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
-    <StartupFile>app.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -30,7 +30,6 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="app.py" />
     <Compile Include="mensapp\globals\constants.py">
       <SubType>Code</SubType>
     </Compile>
@@ -38,8 +37,12 @@
     <Compile Include="mensapp\globals\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="main.py" />
     <Compile Include="mensapp\model\food.py" />
     <Compile Include="mensapp\model\mensa.py" />
+    <Compile Include="mensapp\model\mensaEntity.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="mensapp\model\menu.py" />
     <Compile Include="mensapp\model\price.py" />
     <Compile Include="mensapp\model\foodItem.py">
@@ -60,7 +63,9 @@
     <Compile Include="mensapp\__init__.py" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="requirements.txt" />
+    <Content Include="app.yaml" />
+    <Content Include="favicon.ico" />
+    <Content Include="index.yaml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="mensapp\globals\" />

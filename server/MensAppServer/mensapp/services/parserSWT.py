@@ -37,21 +37,17 @@ class ParserSWT(object):
             self.__Parse(date.strftime(Constants.SWTDateFormat))
 
     def __Prepare(self):
-        
-        # load from file (develop)
-        # fileObj = codecs.open("C:\Users\MrCube\Documents\MensApp\server\speiseplan.xml", "r")
-        
-        # load from URL
         fileObj = urllib.urlopen("http://www.studiwerk.de/export/speiseplan.xml")
         raw = fileObj.read()
-        
-        #decoded = raw.decode("iso-8859-15")
-        # read from raw string
         self.__Root = ET.fromstring(raw)
 
     def __Parse(self, date):
         parser = Parser()
         dateNode = parser.FindAttributedNode(self.__Root, "artikel", "date", date)
+        
+        if dateNode is None:
+            return
+
         mensaNode = parser.FindAttributedNode(dateNode, "standort", "id", self.__MensaIdInternal)
         mensaName = parser.FindNodeValue(mensaNode, "label")
         isOpen = parser.FindNodeValue(mensaNode, "geschlossen") == "0"
@@ -131,3 +127,6 @@ class ParserSWT(object):
 
     def GetMensa(self, date):
         return self.__Mensas[date]
+
+    def HasMensa(self, date):
+        return self.__Mensas.has_key(date)
