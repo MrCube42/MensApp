@@ -41,8 +41,8 @@ from datetime import datetime
 import webapp2
 import logging
 
-from mensapp.model.mensaEntity import MensaEntity
-from google.appengine.ext import db
+from mensapp.dal.mensaEntity import MensaEntity
+from mensapp.dal.mensaQuery import MensaQuery
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -69,18 +69,10 @@ class MainHandler(webapp2.RequestHandler):
 
             jsonString = json.dumps(menusJson)
             
-            mensaEntity = None
-            # check whether already there
-            mensaEntities = db.GqlQuery("""
-                SELECT *
-                FROM MensaEntity
-                WHERE mensa_id = :1
-                AND date = :2
-                """, int(mensaId), startDate.date())
-            
-            mensaEntity = mensaEntities.get()
+            query = MensaQuery(mensaId, startDate)
+            mensaEntity = query.GetResult()
             if mensaEntity is not None:
-                print mensaEntity
+                logging.info(mensaEntity)
             else:
                 # otherwise fetch and store in DB
                 mensaEntity = MensaEntity(

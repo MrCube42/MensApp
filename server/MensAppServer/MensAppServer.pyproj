@@ -30,6 +30,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="foodItemTest.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="mensapp\globals\constants.py">
       <SubType>Code</SubType>
     </Compile>
