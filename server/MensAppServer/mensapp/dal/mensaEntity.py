@@ -1,4 +1,7 @@
-﻿import datetime
+﻿#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import datetime
 from google.appengine.ext import db
 from google.appengine.api import users
 

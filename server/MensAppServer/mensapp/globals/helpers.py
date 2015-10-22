@@ -1,4 +1,7 @@
-﻿from datetime import timedelta
+﻿#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from datetime import timedelta
 
 class Helpers(object):
     """description of class"""

@@ -7,15 +7,20 @@ from mensapp.model.food import Food
 from mensapp.model.foodItem import FoodItem
 from mensapp.model.price import Price
 
+from mensapp.globals.constants import Constants
+import datetime
+
 import json
 
-class TransformatorSWT(object):
+class HtmlConverter(object):
     """description of class"""
 
     __OrConnectString = " oder "
     __AndConnectString = ", "
 
-    def __init__(self, startDateString, endDateString, mensaId, mensas, openHours = None):
+    def __init__(self, startDate, endDate, mensaId, mensas, openHours = None):
+        startDateString = startDate.strftime(Constants.SWTDateFormat)
+        endDateString = endDate.strftime(Constants.SWTDateFormat)
         self.__DateString = u"{0}-{1}".format(startDateString, endDateString)
         self.__MensaId = mensaId
         self.__OpenHours = openHours

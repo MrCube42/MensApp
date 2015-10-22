@@ -3,7 +3,7 @@
 
 import codecs
 import xml.etree.ElementTree as ET
-from mensapp.services.parser import Parser
+from mensapp.services.xmlParser import XmlParser
 from mensapp.model.mensa import Mensa
 from mensapp.model.menu import Menu
 from mensapp.model.food import Food
@@ -19,10 +19,10 @@ from datetime import timedelta
 
 import urllib
 
-class ParserSWT(object):
+class SWTParser(object):
     """description of class"""
 
-    def __init__(self, mensaId, beginDateString, endDateString):
+    def __init__(self, mensaId, date):# beginDateString = None, endDateString = None):
         self.__Mensas = {}
         self.__MensaId = mensaId
         self.__MensaIdInternal = u"standort-{0}".format(mensaId)
@@ -30,11 +30,12 @@ class ParserSWT(object):
         self.__Root = None
         self.__Prepare()
         
-        self.__BeginDate = datetime.strptime(beginDateString, Constants.SWTDateFormat)
-        self.__EndDate = datetime.strptime(endDateString, Constants.SWTDateFormat)
+        #self.__BeginDate = datetime.strptime(beginDateString, Constants.SWTDateFormat)
+        #self.__EndDate = datetime.strptime(endDateString, Constants.SWTDateFormat)
         
-        for date in Helpers.GetDatesBetweenIncluding(self.__BeginDate, self.__EndDate):
-            self.__Parse(date.strftime(Constants.SWTDateFormat))
+        #for date in Helpers.GetDatesBetweenIncluding(self.__BeginDate, self.__EndDate):
+        #    self.__Parse(date.strftime(Constants.SWTDateFormat))
+        self.__Parse(date.strftime(Constants.SWTDateFormat))
 
     def __Prepare(self):
         fileObj = urllib.urlopen("http://www.studiwerk.de/export/speiseplan.xml")
@@ -42,7 +43,7 @@ class ParserSWT(object):
         self.__Root = ET.fromstring(raw)
 
     def __Parse(self, date):
-        parser = Parser()
+        parser = XmlParser()
         dateNode = parser.FindAttributedNode(self.__Root, "artikel", "date", date)
         
         if dateNode is None:
@@ -126,7 +127,8 @@ class ParserSWT(object):
         self.__Mensas[date] = mensa
 
     def GetMensa(self, date):
-        return self.__Mensas[date]
+        #return self.__Mensas[date]
+        return self.__Mensas[date.strftime(Constants.SWTDateFormat)]
 
     def HasMensa(self, date):
         return self.__Mensas.has_key(date)

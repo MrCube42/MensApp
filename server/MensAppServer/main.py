@@ -25,62 +25,66 @@ import sys
 reload(sys)  # Reload does the trick!
 sys.setdefaultencoding("utf-8")
 
-from mensapp.services.parserSWT import ParserSWT
-from mensapp.services.transformatorSWT import TransformatorSWT
-
-from mensapp.globals.helpers import Helpers
-from mensapp.globals.constants import Constants
-
-import json
-
-from mensapp.services.jsonConverter import JsonConverter
-
-from datetime import date
-from datetime import datetime
-
 import webapp2
-import logging
 
-from mensapp.dal.mensaEntity import MensaEntity
-from mensapp.dal.mensaQuery import MensaQuery
+from mensapp.services.argumentParser import ArgumentParser
+from mensapp.services.foodServer import FoodServer
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         """TODO: Description..."""
 
-        mensaId = self.request.get("mensa")
-        startDateString = "20151021"
-        endDateString = "20151026"
+        argumentParser = ArgumentParser(self.request)
+        if not argumentParser.HasMensaId():
+            # Error: Should never happen
+            response.write("You must provide a Mensa-ID as argument '?mensa='.")
+        mensaId = argumentParser.GetMensaId()
 
-        startDate = datetime.strptime(startDateString, Constants.SWTDateFormat)
-        endDate = datetime.strptime(endDateString, Constants.SWTDateFormat)
-
-        parser = ParserSWT(mensaId, startDateString, endDateString)
+        if argumentParser.HasDateSpan():
+            # Query span
+            startDate = argumentParser.GetStartDate()
+            endDate = argumentParser.GetEndDate()
+            foodServer = FoodServer()
+            htmlString = foodServer.GetHtmlOutput(mensaId, startDate, endDate)
+            self.response.headers['Access-Control-Allow-Origin'] = '*'
+            self.response.write(htmlString)
         
-        dateString = startDate.strftime(Constants.SWTDateFormat)
-        if parser.HasMensa(dateString):
-            mensa = parser.GetMensa(dateString)
-            #mensas.append(mensa)
+        elif argumentParser.HasDate():
+            # Query single date
+            date = argumentParser.GetDate()
+            foodServer = FoodServer()
+            jsonString = foodServer.GetJsonOutput(mensaId, date)
+            self.response.headers['Access-Control-Allow-Origin'] = '*'
+            self.response.write(jsonString)
 
-            # generate json
-            menusJson = []
-            for menu in mensa.GetMenus():
-                menusJson.append(JsonConverter.ConvertMenuToJson(menu))
+        #parser = ParserSWT(mensaId, startDateString, endDateString)
+        
+        #dateString = startDate.strftime(Constants.SWTDateFormat)
+        #if parser.HasMensa(dateString):
+        #    mensa = parser.GetMensa(dateString)
+        #    #mensas.append(mensa)
 
-            jsonString = json.dumps(menusJson)
+        #    # generate json
+        #    menusJson = []
+        #    for menu in mensa.GetMenus():
+        #        menusJson.append(JsonConverter.ConvertMenuToJson(menu))
+
+        #    jsonString = json.dumps(menusJson)
             
-            query = MensaQuery(mensaId, startDate)
-            mensaEntity = query.GetResult()
-            if mensaEntity is not None:
-                logging.info(mensaEntity)
-            else:
-                # otherwise fetch and store in DB
-                mensaEntity = MensaEntity(
-                    date = startDate.date(),
-                    mensa_id = int(mensaId),
-                    foods = jsonString,
-                    is_open = mensa.IsOpen())
-                mensaEntity.put()
+        #    query = MensaQuery(mensaId, startDate)
+        #    mensaEntity = query.GetResult()
+        #    if mensaEntity is not None:
+        #        logging.info(mensaEntity)
+        #    else:
+        #        transaction = MensaTransaction(mensa, startDate)
+        #        transaction.Store()
+                ## otherwise fetch and store in DB
+                #mensaEntity = MensaEntity(
+                #    date = startDate.date(),
+                #    mensa_id = int(mensaId),
+                #    foods = jsonString,
+                #    is_open = mensa.IsOpen())
+                #mensaEntity.put()
 
         #for date in Helpers.GetDatesBetweenIncluding(startDate, endDate):
         #    dateString = date.strftime(Constants.SWTDateFormat)
@@ -107,9 +111,9 @@ class MainHandler(webapp2.RequestHandler):
 
         #jsonString = transformator.GetJsonString()
         #jsonString = json.dumps(jsonObject, ensure_ascii = False, indent = 2, sort_keys = True)
-        self.response.headers['Access-Control-Allow-Origin'] = '*'
-        #self.response.write(jsonString)
-        self.response.write("done")
+        #self.response.headers['Access-Control-Allow-Origin'] = '*'
+        ##self.response.write(jsonString)
+        #self.response.write("done")
 
         # TODO: Handle parsed data (write to file, in DB or elsewhere)
         #filename = u"{0}_mensafood_{1}-{2}_2.0.xml".format(mensaId, startDateString, endDateString)

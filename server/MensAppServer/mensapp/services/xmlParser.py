@@ -1,7 +1,7 @@
 ﻿#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-class Parser(object):
+class XmlParser(object):
     """description of class"""
 
     def FindNode(self, sourceNode, nodeName):

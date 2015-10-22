@@ -30,6 +30,12 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="mensapp\dal\mensaEntity.py" />
+    <Compile Include="mensapp\dal\mensaQuery.py" />
+    <Compile Include="mensapp\dal\mensaTransaction.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="mensapp\dal\__init__.py" />
     <Compile Include="mensapp\globals\constants.py">
       <SubType>Code</SubType>
     </Compile>
@@ -40,21 +46,24 @@
     <Compile Include="main.py" />
     <Compile Include="mensapp\model\food.py" />
     <Compile Include="mensapp\model\mensa.py" />
-    <Compile Include="mensapp\model\mensaEntity.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="mensapp\model\menu.py" />
     <Compile Include="mensapp\model\price.py" />
     <Compile Include="mensapp\model\foodItem.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="mensapp\model\__init__.py" />
+    <Compile Include="mensapp\services\argumentParser.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="mensapp\services\foodServer.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="mensapp\services\jsonConverter.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="mensapp\services\parser.py" />
-    <Compile Include="mensapp\services\parserSWT.py" />
-    <Compile Include="mensapp\services\transformatorSWT.py">
+    <Compile Include="mensapp\services\xmlParser.py" />
+    <Compile Include="mensapp\services\swtParser.py" />
+    <Compile Include="mensapp\services\htmlConverter.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="mensapp\services\__init__.py">
@@ -71,6 +80,7 @@
     <Folder Include="mensapp\globals\" />
     <Folder Include="mensapp\model\" />
     <Folder Include="mensapp\" />
+    <Folder Include="mensapp\dal\" />
     <Folder Include="mensapp\services\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />

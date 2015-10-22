@@ -1,4 +1,7 @@
-﻿from google.appengine.ext import db
+﻿#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from google.appengine.ext import db
 
 class MensaQuery(object):
     """description of class"""
@@ -9,7 +12,7 @@ class MensaQuery(object):
             FROM MensaEntity
             WHERE mensa_id = :1
             AND date = :2
-            """, int(mensaId), date.date())
+            """, mensaId, date)
         self.__MensaEntity = mensaEntities.get()
 
     def HasResult(self):
