@@ -59,7 +59,7 @@ class MensaEncoder(JSONEncoder):
         jsonObject[Constants.JSON_MAINS_KEY] = self.__CreateJsonListFromFoodItemList(mains)
         firstSides = food.GetFirstSides()
         jsonObject[Constants.JSON_FIRST_SIDES_KEY] = self.__CreateJsonListFromFoodItemList(firstSides)
-        secondSides = food.GetMains()
+        secondSides = food.GetSecondSides()
         jsonObject[Constants.JSON_SECOND_SIDES_KEY] = self.__CreateJsonListFromFoodItemList(secondSides)
         desserts = food.GetDesserts()
         jsonObject[Constants.JSON_DESSERTS_KEY] = self.__CreateJsonListFromFoodItemList(desserts)
