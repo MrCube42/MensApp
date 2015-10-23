@@ -4,7 +4,7 @@
 class Mensa(object):
     """description of class"""
 
-    def __init__(self, id, name, isOpen = True):
+    def __init__(self, id, name = None, isOpen = True):
         self.__Id = id
         self.__Name = name
         self.__IsOpen = isOpen
@@ -24,3 +24,6 @@ class Mensa(object):
 
     def GetMenus(self):
         return self.__Menus
+
+    def HasMenus(self):
+        return len(self.__Menus) > 0

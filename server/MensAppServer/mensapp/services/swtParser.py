@@ -30,12 +30,6 @@ class SWTParser(object):
         self.__Result = ""
         self.__Root = None
         self.__Prepare()
-        
-        #self.__BeginDate = datetime.strptime(beginDateString, Constants.SWTDateFormat)
-        #self.__EndDate = datetime.strptime(endDateString, Constants.SWTDateFormat)
-        
-        #for date in Helpers.GetDatesBetweenIncluding(self.__BeginDate, self.__EndDate):
-        #    self.__Parse(date.strftime(Constants.SWTDateFormat))
         self.__Parse(date.strftime(Constants.SWTDateFormat))
 
     def __Prepare(self):
@@ -128,8 +122,7 @@ class SWTParser(object):
         self.__Mensas[date] = mensa
 
     def GetMensa(self, date):
-        #return self.__Mensas[date]
         return self.__Mensas[date.strftime(Constants.SWTDateFormat)]
 
     def HasMensa(self, date):
-        return self.__Mensas.has_key(date)
+        return self.__Mensas.has_key(date.strftime(Constants.SWTDateFormat))

@@ -6,6 +6,9 @@ class Constants(object):
 
     SWTDateFormat = "%Y%m%d"
 
+    ### Texts ###
+    TEXT_NO_DATA = u"Aktuell leider keine Daten verfügbar."
+
     ### JSON Keys ###
     ## General ##
     JSON_TYPE_KEY = "__type__"

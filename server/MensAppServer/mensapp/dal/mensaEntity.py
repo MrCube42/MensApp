@@ -10,3 +10,4 @@ class MensaEntity(db.Model):
     date = db.DateProperty(required=True)
     is_open = db.BooleanProperty(required=True)
     as_json = db.TextProperty(required=True)
+    is_available = db.BooleanProperty(required=False)

@@ -38,11 +38,14 @@ class LegacyConverter(object):
     def __GetJsonFoods(self):
         foods = []
         for mensa in self.__Mensas:
-            menus = []
-            for menu in mensa.GetMenus():
-                if(menu.HasFood()):
-                    menus.append(self.__ConvertMenu(menu))
-            foods.append("".join(menus))
+            if mensa.HasMenus():
+                menus = []
+                for menu in mensa.GetMenus():
+                    if(menu.HasFood()):
+                        menus.append(self.__ConvertMenu(menu))
+                foods.append("".join(menus))
+            else:
+                foods.append(u"<div class='menu'>{0}</div>".format(Constants.TEXT_NO_DATA))
         return foods
 
     def __ConvertMenu(self, menu):

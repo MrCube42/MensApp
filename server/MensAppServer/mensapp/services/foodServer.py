@@ -7,10 +7,13 @@ from mensapp.dal.mensaQuery import MensaQuery
 from mensapp.dal.mensaTransaction import MensaTransaction
 
 from mensapp.globals.helpers import Helpers
+from mensapp.globals.constants import Constants
 
 from mensapp.services.swtParser import SWTParser
 from mensapp.services.mensaDecoder import MensaDecoder
 from mensapp.services.legacyConverter import LegacyConverter
+
+from mensapp.model.mensa import Mensa
 
 class FoodServer(object):
     """description of class"""
@@ -34,11 +37,18 @@ class FoodServer(object):
     def __FetchDataFromRemote(self, mensaId, date):
         # fetch and parse
         parser = SWTParser(mensaId, date)
-        mensa = parser.GetMensa(date)
+        if parser.HasMensa(date):
+            mensa = parser.GetMensa(date)
+            transaction = MensaTransaction(mensa, date)
+            transaction.Store()
+            mensaEntity = transaction.Get()
+        else:
+            # no mensa could be fetched -> use placeholder and set not available
+            mensa = Mensa(mensaId)
+            transaction = MensaTransaction(mensa, date, False)
+            transaction.Store()
+            mensaEntity = transaction.Get()
         # store and return
-        transaction = MensaTransaction(mensa, date)
-        transaction.Store()
-        mensaEntity = transaction.Get()
         return mensaEntity
 
     def GetLegacyHtmlJsonOutput(self, mensaId, startDate, endDate):
