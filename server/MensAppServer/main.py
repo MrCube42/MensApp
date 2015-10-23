@@ -57,56 +57,6 @@ class MainHandler(webapp2.RequestHandler):
             self.response.headers['Access-Control-Allow-Origin'] = '*'
             self.response.write(jsonString)
 
-        #parser = ParserSWT(mensaId, startDateString, endDateString)
-        
-        #dateString = startDate.strftime(Constants.SWTDateFormat)
-        #if parser.HasMensa(dateString):
-        #    mensa = parser.GetMensa(dateString)
-        #    #mensas.append(mensa)
-
-        #    # generate json
-        #    menusJson = []
-        #    for menu in mensa.GetMenus():
-        #        menusJson.append(JsonConverter.ConvertMenuToJson(menu))
-
-        #    jsonString = json.dumps(menusJson)
-            
-        #    query = MensaQuery(mensaId, startDate)
-        #    mensaEntity = query.GetResult()
-        #    if mensaEntity is not None:
-        #        logging.info(mensaEntity)
-        #    else:
-        #        transaction = MensaTransaction(mensa, startDate)
-        #        transaction.Store()
-                ## otherwise fetch and store in DB
-                #mensaEntity = MensaEntity(
-                #    date = startDate.date(),
-                #    mensa_id = int(mensaId),
-                #    foods = jsonString,
-                #    is_open = mensa.IsOpen())
-                #mensaEntity.put()
-
-        #for date in Helpers.GetDatesBetweenIncluding(startDate, endDate):
-        #    dateString = date.strftime(Constants.SWTDateFormat)
-        #    if parser.HasMensa(dateString):
-        #        mensa = parser.GetMensa(dateString)
-    
-            ## generate json
-            #menusJson = []
-            #for menu in mensa.GetMenus():
-            #    menusJson.append(JsonConverter.ConvertMenuToJson(menu))
-            #jsonObject[mensaId + date.strftime(Constants.SWTDateFormat)] = menusJson
-
-            ## revert json
-            #for menjuJson in menusJson:
-            #    menu = JsonConverter.ConvertJsonToMenu(menjuJson)
-            #    print menu.GetName()
-            #    for food in menu.GetFoods():
-            #        print food.GetName()
-            #        print food.GetPrice().GetStudentPrice()
-            #        for main in food.GetMains():
-            #            print main.GetName()
-
         #transformator = TransformatorSWT(startDateString, endDateString, mensaId, mensas)
 
         #jsonString = transformator.GetJsonString()

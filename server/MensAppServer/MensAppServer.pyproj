@@ -58,9 +58,8 @@
     <Compile Include="mensapp\services\foodServer.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="mensapp\services\jsonConverter.py">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="mensapp\services\mensaDecoder.py" />
+    <Compile Include="mensapp\services\mensaEncoder.py" />
     <Compile Include="mensapp\services\xmlParser.py" />
     <Compile Include="mensapp\services\swtParser.py" />
     <Compile Include="mensapp\services\htmlConverter.py">

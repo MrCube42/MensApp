@@ -3,8 +3,8 @@
 
 import json
 
+from mensapp.services.mensaEncoder import MensaEncoder
 from mensapp.dal.mensaEntity import MensaEntity
-from mensapp.services.jsonConverter import JsonConverter
 
 class MensaTransaction(object):
     """description of class"""
@@ -12,18 +12,11 @@ class MensaTransaction(object):
     def __init__(self, mensa, date):
         mensaId = int(mensa.GetId())
         isOpen = mensa.IsOpen()
-
-        # generate json
-        menusJson = []
-        for menu in mensa.GetMenus():
-            menusJson.append(JsonConverter.ConvertMenuToJson(menu))
-        jsonString = json.dumps(menusJson)
-
-        # otherwise fetch and store in DB
+        asJson = json.dumps(mensa, cls = MensaEncoder, ensure_ascii = False, sort_keys = True, indent = 1)
         self.__MensaEntity = MensaEntity(
             date = date.date(),
             mensa_id = mensaId,
-            foods = jsonString,
+            as_json = asJson,
             is_open = isOpen)
 
     def Store(self):

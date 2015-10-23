@@ -1,8 +1,9 @@
-﻿from datetime import datetime
+﻿#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from datetime import datetime
 
 from mensapp.globals.constants import Constants
-
-import logging
 
 class ArgumentParser(object):
     """description of class"""

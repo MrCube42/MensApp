@@ -30,7 +30,7 @@ class FoodServer(object):
         else:
             mensaEntity = self.__FetchDataFromRemote(mensaId, date)
         # create json
-        return mensaEntity.foods
+        return mensaEntity.as_json
 
     def __FetchDataFromRemote(self, mensaId, date):
         # fetch and parse
