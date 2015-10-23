@@ -19,6 +19,7 @@ from datetime import timedelta
 
 import urllib
 
+# TODO: Cleanup
 class SWTParser(object):
     """description of class"""
 
