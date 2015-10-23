@@ -45,9 +45,9 @@ class MainHandler(webapp2.RequestHandler):
             startDate = argumentParser.GetStartDate()
             endDate = argumentParser.GetEndDate()
             foodServer = FoodServer()
-            htmlString = foodServer.GetHtmlOutput(mensaId, startDate, endDate)
+            legacyHtmlJsonString = foodServer.GetLegacyHtmlJsonOutput(mensaId, startDate, endDate)
             self.response.headers['Access-Control-Allow-Origin'] = '*'
-            self.response.write(htmlString)
+            self.response.write(legacyHtmlJsonString)
         
         elif argumentParser.HasDate():
             # Query single date

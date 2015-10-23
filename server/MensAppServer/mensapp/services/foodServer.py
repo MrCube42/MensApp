@@ -10,7 +10,7 @@ from mensapp.globals.helpers import Helpers
 
 from mensapp.services.swtParser import SWTParser
 from mensapp.services.mensaDecoder import MensaDecoder
-from mensapp.services.htmlConverter import HtmlConverter
+from mensapp.services.legacyConverter import LegacyConverter
 
 class FoodServer(object):
     """description of class"""
@@ -41,13 +41,13 @@ class FoodServer(object):
         mensaEntity = transaction.Get()
         return mensaEntity
 
-    def GetHtmlOutput(self, mensaId, startDate, endDate):
+    def GetLegacyHtmlJsonOutput(self, mensaId, startDate, endDate):
         mensas = []    
         for date in Helpers.GetDatesBetweenIncluding(startDate, endDate):
             mensaEntity = self.__QueryMensaEntity(mensaId, date)
             # extract the json from the db entity and construct the mensa object from it
             mensa = json.loads(mensaEntity.as_json, cls = MensaDecoder)
             mensas.append(mensa)
-        converter = HtmlConverter(startDate, endDate, mensaId, mensas)
-        htmlJsonString = converter.GetJsonString()
-        return htmlJsonString
+        legacyConverter = LegacyConverter(mensaId, startDate, endDate, mensas)
+        legacyHtmlJsonString = legacyConverter.GetJsonString()
+        return legacyHtmlJsonString
