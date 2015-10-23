@@ -1,16 +1,16 @@
 ﻿#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import datetime
+import json
+
+from mensapp.globals.constants import Constants
+
 from mensapp.model.mensa import Mensa
 from mensapp.model.menu import Menu
 from mensapp.model.food import Food
 from mensapp.model.foodItem import FoodItem
 from mensapp.model.price import Price
-
-from mensapp.globals.constants import Constants
-import datetime
-
-import json
 
 # TODO!
 class HtmlConverter(object):

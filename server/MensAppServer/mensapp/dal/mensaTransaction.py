@@ -3,8 +3,9 @@
 
 import json
 
-from mensapp.services.mensaEncoder import MensaEncoder
 from mensapp.dal.mensaEntity import MensaEntity
+
+from mensapp.services.mensaEncoder import MensaEncoder
 
 class MensaTransaction(object):
     """description of class"""

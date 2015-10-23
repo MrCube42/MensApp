@@ -57,14 +57,6 @@ class MainHandler(webapp2.RequestHandler):
             self.response.headers['Access-Control-Allow-Origin'] = '*'
             self.response.write(jsonString)
 
-        #transformator = TransformatorSWT(startDateString, endDateString, mensaId, mensas)
-
-        #jsonString = transformator.GetJsonString()
-        #jsonString = json.dumps(jsonObject, ensure_ascii = False, indent = 2, sort_keys = True)
-        #self.response.headers['Access-Control-Allow-Origin'] = '*'
-        ##self.response.write(jsonString)
-        #self.response.write("done")
-
         # TODO: Handle parsed data (write to file, in DB or elsewhere)
         #filename = u"{0}_mensafood_{1}-{2}_2.0.xml".format(mensaId, startDateString, endDateString)
         #with open(filename, 'w') as outfile:
