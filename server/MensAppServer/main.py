@@ -57,11 +57,6 @@ class MainHandler(webapp2.RequestHandler):
             self.response.headers['Access-Control-Allow-Origin'] = '*'
             self.response.write(jsonString)
 
-        # TODO: Handle parsed data (write to file, in DB or elsewhere)
-        #filename = u"{0}_mensafood_{1}-{2}_2.0.xml".format(mensaId, startDateString, endDateString)
-        #with open(filename, 'w') as outfile:
-        #    outfile.write(json)
-
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
 ], debug=True)
