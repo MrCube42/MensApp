@@ -67,8 +67,21 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="mensapp\__init__.py" />
+    <Compile Include="test\mensapp\model\test_foodItem.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test\mensapp\model\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test\mensapp\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="runAllTests.bat" />
     <Content Include="app.yaml" />
     <Content Include="favicon.ico" />
     <Content Include="index.yaml" />
@@ -79,6 +92,9 @@
     <Folder Include="mensapp\" />
     <Folder Include="mensapp\dal\" />
     <Folder Include="mensapp\services\" />
+    <Folder Include="test\" />
+    <Folder Include="test\mensapp\" />
+    <Folder Include="test\mensapp\model\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
   <!-- Specify pre- and post-build commands in the BeforeBuild and 
