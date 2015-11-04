@@ -67,6 +67,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="mensapp\__init__.py" />
+    <Compile Include="test\mensapp\model\test_mensa.py" />
+    <Compile Include="test\mensapp\model\test_menu.py" />
+    <Compile Include="test\mensapp\model\test_food.py" />
+    <Compile Include="test\mensapp\model\test_price.py" />
     <Compile Include="test\mensapp\model\test_foodItem.py">
       <SubType>Code</SubType>
     </Compile>
