@@ -67,6 +67,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="mensapp\__init__.py" />
+    <Compile Include="test\mensapp\globals\test_helpers.py" />
+    <Compile Include="test\mensapp\globals\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="test\mensapp\model\test_mensa.py" />
     <Compile Include="test\mensapp\model\test_menu.py" />
     <Compile Include="test\mensapp\model\test_food.py" />
@@ -97,6 +101,7 @@
     <Folder Include="mensapp\dal\" />
     <Folder Include="mensapp\services\" />
     <Folder Include="test\" />
+    <Folder Include="test\mensapp\globals\" />
     <Folder Include="test\mensapp\" />
     <Folder Include="test\mensapp\model\" />
   </ItemGroup>
