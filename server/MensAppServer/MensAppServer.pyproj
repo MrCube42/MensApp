@@ -81,6 +81,10 @@
     <Compile Include="test\mensapp\model\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="test\mensapp\services\test_argumentParser.py" />
+    <Compile Include="test\mensapp\services\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="test\mensapp\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -104,6 +108,7 @@
     <Folder Include="test\mensapp\globals\" />
     <Folder Include="test\mensapp\" />
     <Folder Include="test\mensapp\model\" />
+    <Folder Include="test\mensapp\services\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
   <!-- Specify pre- and post-build commands in the BeforeBuild and 

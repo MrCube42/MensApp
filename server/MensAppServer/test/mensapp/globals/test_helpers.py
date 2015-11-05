@@ -6,7 +6,7 @@ import unittest
 from mensapp.globals.helpers import Helpers
 from datetime import datetime
 
-class Test_FoodItem(unittest.TestCase):
+class Test_Helpers(unittest.TestCase):
 
     TEST_DATE_FORMAT = "%Y%m%d"
 
