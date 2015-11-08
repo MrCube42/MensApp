@@ -82,6 +82,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="test\mensapp\services\test_argumentParser.py" />
+    <Compile Include="test\mensapp\services\test_xmlParser.py" />
     <Compile Include="test\mensapp\services\__init__.py">
       <SubType>Code</SubType>
     </Compile>
