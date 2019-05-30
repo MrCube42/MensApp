@@ -1,3 +1,84 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~onsenui/css/onsenui.css';
-@import '~onsenui/css/onsen-css-components.css';
+@import '../node_modules/onsenui/css/onsenui.css';
+@import '../node_modules/onsenui/css-components-src/src/onsen-css-components.css';
+/* Custom Theme for Onsen UI 2.10.8 */
+
+$background: #fff5b8;
+$highlight: #7ab16a;
+$highlight_dark: #3c6631;
+
+:root {
+  /* variables for Material Design components */
+  --material-background-color: #{$background};
+  --material-text-color: var(--text-color);
+  --material-notification-background-color: #e91e63;
+  --material-notification-color: white;
+  --material-switch-active-thumb-color: #37474f;
+  --material-switch-active-background-color: color(#37474f a(50%));
+  --material-switch-inactive-thumb-color: #f1f1f1;
+  --material-switch-inactive-background-color: #b0afaf;
+  --material-range-track-color: #bdbdbd;
+  --material-range-thumb-color: #31313a;
+  --material-range-disabled-thumb-color: #b0b0b0;
+  --material-range-disabled-thumb-border-color: #eeeeee;
+  --material-range-zero-thumb-color: #f2f2f2;
+  --material-toolbar-background-color: #{$highlight};
+  --material-toolbar-text-color: #31313a;
+  --material-toolbar-button-color: #{$highlight_dark};
+  --material-segment-background-color: #fafafa;
+  --material-segment-active-background-color: #c8c8c8;
+  --material-segment-text-color: color(black a(38%));
+  --material-segment-active-text-color: #353535;
+  --material-button-background-color: #{$highlight};
+  --material-button-text-color: #ffffff;
+  --material-button-disabled-background-color: color(#4f4f4f a(26%));
+  --material-button-disabled-color: color(black a(26%));
+  --material-flat-button-active-background-color: color(#999 a(20%));
+  --material-list-background-color: #fff;
+  --material-list-item-separator-color: #eee;
+  --material-list-header-text-color: #757575;
+  --material-checkbox-active-color: #37474f;
+  --material-checkbox-inactive-color: #717171;
+  --material-checkbox-checkmark-color: #ffffff;
+  --material-radio-button-active-color: #37474f;
+  --material-radio-button-inactive-color: #717171;
+  --material-radio-button-disabled-color: #afafaf;
+  --material-text-input-text-color: #212121;
+  --material-text-input-active-color: #3d5afe;
+  --material-text-input-inactive-color: #afafaf;
+  --material-search-background-color: #fafafa;
+  --material-dialog-background-color: #ffffff;
+  --material-dialog-text-color: var(--material-text-color);
+  --material-alert-dialog-background-color: #ffffff;
+  --material-alert-dialog-title-color: #31313a;
+  --material-alert-dialog-content-color: rgba(49, 49, 58, 0.85);
+  --material-alert-dialog-button-color: #37474f;
+  --material-progress-bar-primary-color: #37474f;
+  --material-progress-bar-secondary-color: #548ba7;
+  --material-progress-bar-background-color: transparent;
+  --material-progress-circle-primary-color: var(--material-progress-bar-primary-color);
+  --material-progress-circle-secondary-color: var(--material-progress-bar-secondary-color);
+  --material-progress-circle-background-color: transparent;
+  --material-tabbar-background-color: #ffffff;
+  --material-tabbar-text-color: #31313a;
+  --material-tabbar-highlight-text-color: #31313a;
+  --material-tabbar-highlight-color: rgba(49, 49, 58, 0.1);
+  --material-fab-text-color: #31313a;
+  --material-fab-background-color: #ffffff;
+  --material-fab-active-background-color: rgba(255, 255, 255, 0.75);
+  --material-card-background-color: white;
+  --material-card-text-color: rgba(0, 0, 0, 0.54);
+  --material-toast-background-color: rgba(0, 0, 0, 0.8);
+  --material-toast-text-color: white;
+  --material-toast-button-text-color: #bbdefb;
+  --material-select-input-color: var(--material-text-color);
+  --material-select-input-active-color: rgba(0, 0, 0, 0.15);
+  --material-select-input-inactive-color: rgba(0, 0, 0, 0.81);
+  --material-select-border-color: color(black a(12%));
+  --material-popover-background-color: #fafafa;
+  --material-popover-text-color: var(--material-text-color);
+  --material-action-sheet-text-color: #686868;
+
+  /* others */
+  --tap-highlight-color: transparent;
+}

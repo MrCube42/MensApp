@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
   public today = new Date();
   public startDate$: Observable<Date>;
   public endDate$: Observable<Date>;
+  public selectedDate = new Date();
 
   public settingsActionsActive = false;
 
@@ -42,7 +43,7 @@ export class AppComponent implements OnInit {
     this.days$ = this.startDate$.pipe(
       map(startDate => {
         const days: string[] = [];
-        for (let i = 0; i <= 5; i++) {
+        for (let i = 0; i < 5; i++) {
           days.push(format(addDays(startDate, i), 'dddd'));
         }
 

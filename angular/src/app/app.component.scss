@@ -1,0 +1,54 @@
+.app-title {
+  font-weight: bold;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+ons-select {
+  margin: 0 24px;
+}
+
+.mensa-selection {
+  display: flex;
+  align-items: center;
+  padding-right: 16px;
+
+  ons-select {
+    margin: 0;
+    flex-grow: 1;
+  }
+}
+
+.remember-mensa-selection {
+  display: flex;
+  padding-left: 0;
+
+  ons-switch {
+    align-self: center;
+    margin-right: 8px;
+    width: 36px;
+    min-width: 52px;
+
+    ::ng-deep .switch__toggle {
+      margin-left: 16px;
+    }
+  }
+
+  label {
+    flex-grow: 1;
+  }
+}
+
+ons-modal {
+  ons-list-item {
+    padding-left: 0;
+    display: flex;
+
+    ons-button {
+      flex-grow: 1;
+    }
+  }
+}

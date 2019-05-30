@@ -2,10 +2,7 @@
   <ons-toolbar>
     <div class="center">
       <span class="app-title">{{ appTitle }}</span>
-      <span class="date-range">
-        ({{ startDate$ | async | date: 'dd.MM' }} - {{ endDate$ | async | date: 'dd.MM.yyyy' }})
-      </span>
-      {{ today | date: 'EEEE' }}
+      <span class="list-item__subtitle"> ({{ selectedDate | date: 'EEEE, dd.MM.yyyy' }}) </span>
     </div>
     <div class="right">
       <ons-toolbar-button (click)="actionSheet.visible ? actionSheet.hide() : actionSheet.show()">
@@ -15,11 +12,6 @@
   </ons-toolbar>
   <div class="background"></div>
   <div class="content">
-    <ons-select [(ngModel)]="selectedDay">
-      <option *ngFor="let day of days$ | async" [value]="day">
-        {{ day }}
-      </option>
-    </ons-select>
     <ons-carousel #carousel swipeable auto-scroll overscrollable id="carousel">
       <ons-carousel-item *ngFor="let foodCounter of foodCounters$ | async">
         <ons-card>
@@ -47,7 +39,7 @@
         </ons-card>
       </ons-carousel-item>
     </ons-carousel>
-    <ons-select [(ngModel)]="selectedMensa">
+    <ons-select [(ngModel)]="selectedMensa" [attr.modifier]="'underbar'">
       <option *ngFor="let mensa of availableMensas" [value]="mensa">
         [{{ mensa.location }}] {{ mensa.title }}
       </option>
@@ -57,18 +49,52 @@
       <div class="action-sheet-mask"></div>
       <div class="action-sheet">
         <div class="action-sheet-title">Einstellungen</div>
-        <ons-checkbox
-          [attr.input-id]="'remember-mensa-selection'"
-          [(ngModel)]="rememberMensaSelection"
-          class="left"
+        <ons-action-sheet-button (click)="dialog.show()"
+          >Anderes Datum wählen</ons-action-sheet-button
         >
-        </ons-checkbox>
-        <label [attr.for]="'remember-mensa-selection'" class="center">
-          Mensenauswahl merken
-        </label>
+        <ons-action-sheet-button class="remember-mensa-selection">
+          <ons-switch
+            [attr.input-id]="'remember-mensa-selection'"
+            [(ngModel)]="rememberMensaSelection"
+            class="left"
+          >
+          </ons-switch>
+          <label [attr.for]="'remember-mensa-selection'" class="center">
+            Mensenauswahl merken
+          </label>
+        </ons-action-sheet-button>
         <ons-action-sheet-button>Speisepläne zurücksetzen</ons-action-sheet-button>
         <ons-action-sheet-button>Einstellungen zurücksetzen</ons-action-sheet-button>
       </div>
     </ons-action-sheet>
   </div>
 </ons-page>
+
+<!-- must be located just under an outermost box such as body element -->
+<ons-modal animation="default" #dialog>
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Datumsauswahl</div>
+      <div class="right">
+        <ons-toolbar-button (click)="dialog.hide()">
+          <ons-icon icon="md-arrow-back"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+    </ons-toolbar>
+    <div class="content">
+      <div style="text-align: center">
+        <ons-list>
+          <ons-list-item *ngFor="let day of days$ | async" [value]="day">
+            <ons-button
+              (click)="dialog.hide()"
+              [attr.modifier]="
+                day === (selectedDate | date: 'EEEE') ? 'material' : 'material--flat'
+              "
+              >{{ day }}
+            </ons-button>
+          </ons-list-item>
+        </ons-list>
+      </div>
+    </div>
+  </ons-page>
+</ons-modal>
