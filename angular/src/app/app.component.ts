@@ -3,6 +3,7 @@ import { addDays, format, startOfWeek } from 'date-fns';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FoodCounter } from './types/food-counter';
+import { Mensa } from './types/mensa';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,6 +17,18 @@ export class AppComponent implements OnInit {
 
   public days$: Observable<string[]>;
   public selectedDay = format(this.today, 'dddd');
+
+  public availableMensas: Mensa[] = [
+    { id: 1, title: 'Tarforst', location: 'Uni' },
+    { id: 8, title: 'Geo-Mensa Petrisberg', location: 'Uni' },
+    { id: 2, title: 'Forum/Bistro AB - Kleine Karte', location: 'Uni' },
+    { id: 7, title: 'Schneidershof', location: 'FH' },
+    { id: 5, title: 'Cafeteria Schneidershof - Kleine Karte', location: 'FH' },
+    { id: 10, title: 'Kleine Karte', location: 'Kindergarten' },
+    { id: 6, title: 'Mittagstisch', location: 'Irminenfreihof' },
+  ];
+
+  public selectedMensa = this.availableMensas[0];
 
   public foodCounters$: Observable<FoodCounter[]>;
 
