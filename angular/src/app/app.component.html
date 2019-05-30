@@ -12,7 +12,12 @@
   </ons-toolbar>
   <div class="background"></div>
   <div class="content">
-    <ons-carousel #carousel swipeable auto-scroll overscrollable id="carousel">
+    <ons-select [(ngModel)]="selectedMensa" [attr.modifier]="'underbar'">
+      <option *ngFor="let mensa of availableMensas" [value]="mensa">
+        [{{ mensa.location }}] {{ mensa.title }}
+      </option>
+    </ons-select>
+    <ons-carousel #carousel fullscreen swipeable auto-scroll overscrollable id="carousel">
       <ons-carousel-item *ngFor="let foodCounter of foodCounters$ | async">
         <ons-card>
           <div class="title">
@@ -39,11 +44,6 @@
         </ons-card>
       </ons-carousel-item>
     </ons-carousel>
-    <ons-select [(ngModel)]="selectedMensa" [attr.modifier]="'underbar'">
-      <option *ngFor="let mensa of availableMensas" [value]="mensa">
-        [{{ mensa.location }}] {{ mensa.title }}
-      </option>
-    </ons-select>
 
     <ons-action-sheet #actionSheet cancelable>
       <div class="action-sheet-mask"></div>
