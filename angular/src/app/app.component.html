@@ -15,5 +15,32 @@
         {{ day }}
       </option>
     </ons-select>
+    <ons-carousel #carousel fullscreen swipeable auto-scroll overscrollable id="carousel">
+      <ons-carousel-item *ngFor="let foodCounter of foodCounters$ | async">
+        <ons-card>
+          <div class="title">
+            {{ foodCounter.title }}
+          </div>
+          <div class="content">
+            <ons-list>
+              <ng-container *ngFor="let food of foodCounter.foods">
+                <!-- <ons-list-header>{{ food.title }}</ons-list-header> -->
+                <ons-list-item>
+                  <div class="right">
+                    {{ food.price }}
+                  </div>
+                  <div class="center">
+                    <span class="list-item__title">{{ food.title }}</span>
+                    <span *ngIf="food.description !== undefined" class="list-item__subtitle">{{
+                      food.description
+                    }}</span>
+                  </div>
+                </ons-list-item>
+              </ng-container>
+            </ons-list>
+          </div>
+        </ons-card>
+      </ons-carousel-item>
+    </ons-carousel>
   </div>
 </ons-page>
