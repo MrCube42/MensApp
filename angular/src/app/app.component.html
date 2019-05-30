@@ -5,10 +5,15 @@
       <span class="date-range">
         ({{ startDate$ | async | date: 'dd.MM' }} - {{ endDate$ | async | date: 'dd.MM.yyyy' }})
       </span>
+      {{ today | date: 'EEEE' }}
     </div>
   </ons-toolbar>
   <div class="background"></div>
   <div class="content">
-    <!-- Content of the page -->
+    <ons-select [(ngModel)]="selectedDay">
+      <option *ngFor="let day of days$ | async" [value]="day">
+        {{ day }}
+      </option>
+    </ons-select>
   </div>
 </ons-page>

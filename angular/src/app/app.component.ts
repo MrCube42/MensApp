@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { addDays, startOfWeek } from 'date-fns';
+import { addDays, format, startOfWeek } from 'date-fns';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 @Component({
@@ -9,12 +9,25 @@ import { map } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
   public readonly appTitle = 'MensApp';
+  public today = new Date();
   public startDate$: Observable<Date>;
   public endDate$: Observable<Date>;
 
+  public days$: Observable<string[]>;
+  public selectedDay = format(this.today, 'dddd');
+
   ngOnInit() {
-    const now = new Date();
-    this.startDate$ = of(startOfWeek(now, { weekStartsOn: 1 }));
+    this.startDate$ = of(startOfWeek(this.today, { weekStartsOn: 1 }));
     this.endDate$ = this.startDate$.pipe(map(startDate => addDays(startDate, 4)));
+    this.days$ = this.startDate$.pipe(
+      map(startDate => {
+        const days: string[] = [];
+        for (let i = 0; i <= 5; i++) {
+          days.push(format(addDays(startDate, i), 'dddd'));
+        }
+
+        return days;
+      }),
+    );
   }
 }
