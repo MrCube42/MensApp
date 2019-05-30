@@ -23,7 +23,11 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "node_modules/onsenui/css/onsenui.css",
+              "node_modules/onsenui/css/onsen-css-components.css",
+              "src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -85,11 +89,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
+            "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json", "e2e/tsconfig.json"],
             "exclude": ["**/node_modules/**"]
           }
         }
