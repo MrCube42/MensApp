@@ -1,6 +1,11 @@
 <ons-page>
   <ons-toolbar>
-    <div class="center">MensApp</div>
+    <div class="center">
+      <span class="app-title">{{ appTitle }}</span>
+      <span class="date-range">
+        ({{ startDate$ | async | date: 'dd.MM' }} - {{ endDate$ | async | date: 'dd.MM.yyyy' }})
+      </span>
+    </div>
   </ons-toolbar>
   <div class="background"></div>
   <div class="content">
