@@ -15,6 +15,8 @@ export class AppComponent implements OnInit {
   public startDate$: Observable<Date>;
   public endDate$: Observable<Date>;
 
+  public settingsActionsActive = false;
+
   public days$: Observable<string[]>;
   public selectedDay = format(this.today, 'dddd');
 
@@ -31,6 +33,8 @@ export class AppComponent implements OnInit {
   public selectedMensa = this.availableMensas[0];
 
   public foodCounters$: Observable<FoodCounter[]>;
+
+  public rememberMensaSelection = false;
 
   ngOnInit() {
     this.startDate$ = of(startOfWeek(this.today, { weekStartsOn: 1 }));

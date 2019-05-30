@@ -7,6 +7,11 @@
       </span>
       {{ today | date: 'EEEE' }}
     </div>
+    <div class="right">
+      <ons-toolbar-button (click)="actionSheet.visible ? actionSheet.hide() : actionSheet.show()">
+        <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+      </ons-toolbar-button>
+    </div>
   </ons-toolbar>
   <div class="background"></div>
   <div class="content">
@@ -47,5 +52,23 @@
         [{{ mensa.location }}] {{ mensa.title }}
       </option>
     </ons-select>
+
+    <ons-action-sheet #actionSheet cancelable>
+      <div class="action-sheet-mask"></div>
+      <div class="action-sheet">
+        <div class="action-sheet-title">Einstellungen</div>
+        <ons-checkbox
+          [attr.input-id]="'remember-mensa-selection'"
+          [(ngModel)]="rememberMensaSelection"
+          class="left"
+        >
+        </ons-checkbox>
+        <label [attr.for]="'remember-mensa-selection'" class="center">
+          Mensenauswahl merken
+        </label>
+        <ons-action-sheet-button>Speisepläne zurücksetzen</ons-action-sheet-button>
+        <ons-action-sheet-button>Einstellungen zurücksetzen</ons-action-sheet-button>
+      </div>
+    </ons-action-sheet>
   </div>
 </ons-page>
